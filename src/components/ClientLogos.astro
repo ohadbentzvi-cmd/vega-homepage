@@ -1,20 +1,47 @@
 ---
-const logos = [
-  { src: '/icons/logo-alrov.png',    alt: 'אלרוב' },
-  { src: '/icons/logo-atlas.png',    alt: 'מלונות אטלס' },
-  { src: '/icons/logo-mishkal.png',  alt: 'משכל' },
-  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות' },
-  { src: '/icons/logo-cbre.png',     alt: 'CBRE' },
-  { src: '/icons/logo-carlton.png',  alt: 'קרלטון תל אביב' },
+import { sanityClient, urlFor, PARTNERS_QUERY } from '../lib/sanity';
+
+const STATIC_LOGOS = [
+  { src: '/icons/logo-alrov.png',    alt: 'אלרוב',          href: null },
+  { src: '/icons/logo-atlas.png',    alt: 'מלונות אטלס',    href: null },
+  { src: '/icons/logo-mishkal.png',  alt: 'משכל',           href: null },
+  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות', href: null },
+  { src: '/icons/logo-cbre.png',     alt: 'CBRE',           href: null },
+  { src: '/icons/logo-carlton.png',  alt: 'קרלטון תל אביב', href: null },
 ];
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+let logos = STATIC_LOGOS;
+
+if (projectId) {
+  try {
+    const raw = await sanityClient.fetch(PARTNERS_QUERY);
+    if (raw?.length) {
+      logos = raw.map((p: any) => ({
+        src: urlFor(p.logo).height(88).auto('format').url(),
+        alt: p.name,
+        href: p.website ?? null,
+      }));
+    }
+  } catch (e) {
+    console.warn('[ClientLogos] Sanity fetch failed, using static data');
+  }
+}
+
+const track = [...logos, ...logos, ...logos];
 ---
 
 <section class="logos">
   <div class="logos__wrap">
     <div class="logos__track" aria-hidden="true">
-      {[...logos, ...logos, ...logos].map(logo => (
+      {track.map(logo => (
         <div class="logos__item">
-          <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
+          {logo.href
+            ? <a href={logo.href} target="_blank" rel="noopener noreferrer">
+                <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
+              </a>
+            : <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
+          }
         </div>
       ))}
     </div>

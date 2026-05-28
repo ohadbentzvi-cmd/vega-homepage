@@ -9,9 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "studio": "sanity dev --config studio/sanity.config.ts",
+    "studio:deploy": "sanity deploy --config studio/sanity.config.ts"
   },
   "dependencies": {
+    "@sanity/client": "^7.22.1",
+    "@sanity/image-url": "^2.1.1",
     "astro": "^6.4.2"
+  },
+  "devDependencies": {
+    "sanity": "^5.28.0"
   }
 }

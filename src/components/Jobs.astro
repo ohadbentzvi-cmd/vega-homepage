@@ -1,7 +1,14 @@
 ---
-const categories = ['הכל', 'הנדסה', 'כלכלה', 'לוגיסטיקה', 'מנהל', 'מכירות', 'בנייה'];
+import { sanityClient, JOBS_QUERY } from '../lib/sanity';
 
-const jobs = [
+const JOB_TYPE_LABELS: Record<string, string> = {
+  'full-time': 'משרה מלאה',
+  'part-time': 'משרה חלקית',
+  'immediate': 'מיידי',
+  'temporary': 'זמני',
+};
+
+const STATIC_JOBS = [
   {
     title: 'דרוש/ה עובד/ת ניקיון',
     location: 'תל אביב-יפו',
@@ -10,6 +17,7 @@ const jobs = [
     salary: '₪6,000 – ₪8,000',
     desc: 'דרוש/ה עובד/ת ניקיון לניקיון בסניפים במרכז. ניסיון קודם יתרון. עבודה בשעות הבוקר.',
     badge: 'חדש',
+    applyUrl: '#contact',
   },
   {
     title: 'מנהל/ת תחזוקה בכיר/ה',
@@ -19,6 +27,7 @@ const jobs = [
     salary: '₪12,000 – ₪18,000',
     desc: 'ניהול צוות תחזוקה ופיקוח על עבודות שוטפות במתחם מגורים גדול. ניסיון של 5 שנים לפחות.',
     badge: 'דחוף',
+    applyUrl: '#contact',
   },
   {
     title: 'מהנדס/ת פרויקטים',
@@ -28,6 +37,7 @@ const jobs = [
     salary: '₪15,000 – ₪22,000',
     desc: 'ניהול פרויקטי בנייה ותשתיות. תואר בהנדסה אזרחית / בניין נדרש. רישיון מהנדס רשוי.',
     badge: null,
+    applyUrl: '#contact',
   },
   {
     title: 'רכז/ת שכר וכ"א',
@@ -37,6 +47,7 @@ const jobs = [
     salary: '₪8,000 – ₪12,000',
     desc: 'ניהול תהליכי שכר עבור 200+ עובדים, תיאום עם ממשקים פנים וחוץ ארגוניים.',
     badge: null,
+    applyUrl: '#contact',
   },
   {
     title: 'נהג/ת מלגזה מוסמך/ת',
@@ -46,6 +57,7 @@ const jobs = [
     salary: '₪7,500 – ₪10,000',
     desc: 'נהג/ת מלגזה למחסן לוגיסטי גדול. רישיון בתוקף ועבודה בסביבה ממוחשבת.',
     badge: 'חדש',
+    applyUrl: '#contact',
   },
   {
     title: 'מנהל/ת מכירות אזורי/ת',
@@ -55,8 +67,34 @@ const jobs = [
     salary: '₪16,000 – ₪25,000',
     desc: 'ניהול צוות מכירות ופיתוח לקוחות עסקיים. ניסיון של 3 שנים בניהול מכירות.',
     badge: null,
+    applyUrl: '#contact',
   },
 ];
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+let jobs = STATIC_JOBS;
+
+if (projectId) {
+  try {
+    const raw = await sanityClient.fetch(JOBS_QUERY);
+    if (raw?.length) {
+      jobs = raw.map((j: any) => ({
+        title: j.title,
+        location: j.location,
+        type: JOB_TYPE_LABELS[j.type] ?? j.type ?? '',
+        category: j.category ?? 'הכל',
+        salary: j.salary ?? '',
+        desc: j.description ?? '',
+        badge: j.isUrgent ? 'דחוף' : j.isNew ? 'חדש' : null,
+        applyUrl: j.applyUrl ?? '#contact',
+      }));
+    }
+  } catch (e) {
+    console.warn('[Jobs] Sanity fetch failed, using static data');
+  }
+}
+
+const categories = ['הכל', ...Array.from(new Set(jobs.map(j => j.category).filter(Boolean)))];
 ---
 
 <section class="jobs" id="jobs">
@@ -108,7 +146,7 @@ const jobs = [
           <p class="job-card__desc">{j.desc}</p>
           <div class="job-card__footer">
             <span class="job-card__salary">{j.salary}</span>
-            <a href="#contact" class="job-card__apply">הגש/י מועמדות</a>
+            <a href={j.applyUrl} class="job-card__apply">הגש/י מועמדות</a>
           </div>
         </div>
       ))}

@@ -1,5 +1,7 @@
 ---
-const testimonials = [
+import { sanityClient, urlFor, TESTIMONIALS_QUERY } from '../lib/sanity';
+
+const STATIC_TESTIMONIALS = [
   {
     name: 'דנה לוי',
     role: 'מנהלת משאבי אנוש, חברת הייטק',
@@ -29,6 +31,26 @@ const testimonials = [
     img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80',
   },
 ];
+
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+let testimonials = STATIC_TESTIMONIALS;
+
+if (projectId) {
+  try {
+    const raw = await sanityClient.fetch(TESTIMONIALS_QUERY);
+    if (raw?.length) {
+      testimonials = raw.map((t: any) => ({
+        name: t.name,
+        role: [t.role, t.company].filter(Boolean).join(', '),
+        quote: t.quote,
+        stars: t.rating ?? 5,
+        img: t.avatar ? urlFor(t.avatar).width(88).height(88).fit('crop').auto('format').url() : null,
+      }));
+    }
+  } catch (e) {
+    console.warn('[Testimonials] Sanity fetch failed, using static data');
+  }
+}
 ---
 
 <section class="testimonials" id="testimonials">
@@ -49,7 +71,7 @@ const testimonials = [
           </div>
           <p class="testimonials__quote">"{t.quote}"</p>
           <div class="testimonials__author">
-            <img src={t.img} alt={t.name} class="testimonials__avatar" loading="lazy" />
+            {t.img && <img src={t.img} alt={t.name} class="testimonials__avatar" loading="lazy" />}
             <div>
               <p class="testimonials__name">{t.name}</p>
               <p class="testimonials__role">{t.role}</p>
@@ -126,6 +148,7 @@ const testimonials = [
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 .testimonials__name {
   font-size: 14px;
