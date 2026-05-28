@@ -1,0 +1,581 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Design System – VEGA Holdings">
+  <div class="ds">
+
+    <!-- Header -->
+    <header class="ds-header">
+      <div class="ds-container">
+        <div class="ds-header__brand">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+            <path d="M18 3L20.4 11.6L28 10L22.8 16.6L28 23.2L20.4 21.6L18 30L15.6 21.6L8 23.2L13.2 16.6L8 10L15.6 11.6L18 3Z" fill="#AAC0C0" stroke="#AAC0C0" stroke-width="0.5" stroke-linejoin="round"/>
+            <circle cx="18" cy="16.6" r="3" fill="#627778"/>
+          </svg>
+          <div>
+            <h1 class="ds-header__title">VEGA <span>HOLDINGS</span></h1>
+            <p class="ds-header__sub">Design System</p>
+          </div>
+        </div>
+        <a href="/" class="ds-back">← חזרה לאתר</a>
+      </div>
+    </header>
+
+    <main class="ds-container ds-main">
+
+      <!-- Colors -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Colors</h2>
+        <div class="ds-colors">
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#FFFFFF; border: 1px solid #E5EBEB;"></div>
+            <p class="ds-swatch__hex">#FFFFFF</p>
+            <p class="ds-swatch__name">Pure White</p>
+            <p class="ds-swatch__role">Nav, cards, form backgrounds</p>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#F7F8F9;"></div>
+            <p class="ds-swatch__hex">#F7F8F9</p>
+            <p class="ds-swatch__name">Pale Surface</p>
+            <p class="ds-swatch__role">Alternating section backgrounds</p>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#E5EBEB;"></div>
+            <p class="ds-swatch__hex">#E5EBEB</p>
+            <p class="ds-swatch__name">Teal Whisper</p>
+            <p class="ds-swatch__role">Borders, dividers, card edges</p>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#AAC0C0;"></div>
+            <p class="ds-swatch__hex">#AAC0C0</p>
+            <p class="ds-swatch__name">Mid Teal</p>
+            <p class="ds-swatch__role">Stats bar background, icons</p>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#627778;"></div>
+            <p class="ds-swatch__hex">#627778</p>
+            <p class="ds-swatch__name">Operational Teal</p>
+            <p class="ds-swatch__role">Primary CTAs, active states, links</p>
+          </div>
+          <div class="ds-swatch">
+            <div class="ds-swatch__chip" style="background:#404141;"></div>
+            <p class="ds-swatch__hex">#404141</p>
+            <p class="ds-swatch__name">Charcoal</p>
+            <p class="ds-swatch__role">Body text, top bar, footer, hover state</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Typography -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Typography</h2>
+        <div class="ds-type-stack">
+          <div class="ds-type-row">
+            <div class="ds-type-row__meta">
+              <p class="ds-type-row__label">Display</p>
+              <p class="ds-type-row__spec">Open Sans Condensed · 700 · clamp(44–72px) · 1.05</p>
+            </div>
+            <p class="ds-type-row__sample ds-type--display">אנשים טובים.</p>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-row__meta">
+              <p class="ds-type-row__label">Headline</p>
+              <p class="ds-type-row__spec">Open Sans Condensed · 700 · clamp(28–42px) · 1.15</p>
+            </div>
+            <p class="ds-type-row__sample ds-type--headline">תחומי פעילות</p>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-row__meta">
+              <p class="ds-type-row__label">Title</p>
+              <p class="ds-type-row__spec">Open Sans Condensed · 700 · 18px · 1.3</p>
+            </div>
+            <p class="ds-type-row__sample ds-type--title">מנהל/ת תחזוקה בכיר/ה</p>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-row__meta">
+              <p class="ds-type-row__label">Body</p>
+              <p class="ds-type-row__spec">Open Sans · 400 · 15px · 1.8</p>
+            </div>
+            <p class="ds-type-row__sample ds-type--body">VEGA HOLDINGS היא חברת השירותים הארצית המתמחה בכוח אדם, ניקיון ואחזקה ומניהול מבנים. מאז שנת 2000, אנחנו מלווים לקוחות מהמגזר המוסדי.</p>
+          </div>
+          <div class="ds-type-row">
+            <div class="ds-type-row__meta">
+              <p class="ds-type-row__label">Label</p>
+              <p class="ds-type-row__spec">Open Sans · 700 · 12px · 0.1em letter-spacing · uppercase</p>
+            </div>
+            <p class="ds-type-row__sample ds-type--label">הזדמנויות תעסוקה</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Buttons</h2>
+        <div class="ds-buttons">
+          <div class="ds-btn-demo">
+            <button class="ds-btn ds-btn--primary">מרכז מידע</button>
+            <p class="ds-btn-demo__label">Primary</p>
+          </div>
+          <div class="ds-btn-demo">
+            <button class="ds-btn ds-btn--outline">יצירת קשר</button>
+            <p class="ds-btn-demo__label">Outline</p>
+          </div>
+          <div class="ds-btn-demo" style="background: #404141; padding: 20px; border-radius: 8px;">
+            <button class="ds-btn ds-btn--hero-outline">דרושים</button>
+            <p class="ds-btn-demo__label" style="color: #aaa;">Hero Outline (on dark)</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Icons (feature cards) -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Feature Cards</h2>
+        <p class="ds-section__desc">Designer-supplied PNG assets — used as-is in the About section.</p>
+        <div class="ds-icon-grid">
+          {[
+            { src: '/icons/card-award.png',     label: 'card-award' },
+            { src: '/icons/card-location.png',  label: 'card-location' },
+            { src: '/icons/card-stopwatch.png', label: 'card-stopwatch' },
+            { src: '/icons/card-handshake.png', label: 'card-handshake' },
+            { src: '/icons/card-clipboard.png', label: 'card-clipboard' },
+            { src: '/icons/card-shield.png',    label: 'card-shield' },
+          ].map(item => (
+            <div class="ds-icon-item">
+              <img src={item.src} alt={item.label} class="ds-icon-img" />
+              <p class="ds-icon-label">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Brand Logos -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Brand Logos</h2>
+        <p class="ds-section__desc">Use REGULAR on white/light backgrounds. Use white variant on dark backgrounds (footer, dark overlays).</p>
+        <div class="ds-brand-logos">
+          <div class="ds-brand-logo-item ds-brand-logo-item--light">
+            <img src="/logos/VEGA-LOGO-REGULAR.png" alt="VEGA Holdings — regular" class="ds-brand-logo-img" />
+            <p class="ds-icon-label">VEGA-LOGO-REGULAR.png — light backgrounds</p>
+          </div>
+          <div class="ds-brand-logo-item ds-brand-logo-item--dark">
+            <img src="/logos/VEGA-LOGO-white.png" alt="VEGA Holdings — white" class="ds-brand-logo-img" />
+            <p class="ds-icon-label" style="color: rgba(255,255,255,0.6)">VEGA-LOGO-white.png — dark backgrounds</p>
+          </div>
+          <div class="ds-brand-logo-item ds-brand-logo-item--dark">
+            <img src="/logos/VEGA-LOGO-white01.png" alt="VEGA Holdings — white01" class="ds-brand-logo-img" />
+            <p class="ds-icon-label" style="color: rgba(255,255,255,0.6)">VEGA-LOGO-white01.png — dark backgrounds alt</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Client Logos -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Client Logos</h2>
+        <p class="ds-section__desc">Rendered grayscale at rest, full color on hover.</p>
+        <div class="ds-logo-grid">
+          {[
+            { src: '/icons/logo-alrov.png',    label: 'logo-alrov' },
+            { src: '/icons/logo-atlas.png',    label: 'logo-atlas' },
+            { src: '/icons/logo-mishkal.png',  label: 'logo-mishkal' },
+            { src: '/icons/logo-orchidea.png', label: 'logo-orchidea' },
+            { src: '/icons/logo-cbre.png',     label: 'logo-cbre' },
+            { src: '/icons/logo-carlton.png',  label: 'logo-carlton' },
+          ].map(item => (
+            <div class="ds-logo-item">
+              <img src={item.src} alt={item.label} class="ds-logo-img" />
+              <p class="ds-icon-label">{item.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Spacing -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Spacing Scale</h2>
+        <div class="ds-spacing">
+          {[
+            { token: 'xs', value: '8px' },
+            { token: 'sm', value: '16px' },
+            { token: 'md', value: '24px' },
+            { token: 'lg', value: '48px' },
+            { token: 'xl', value: '80px' },
+          ].map(s => (
+            <div class="ds-space-row">
+              <div class="ds-space-bar" style={`width: ${s.value};`}></div>
+              <span class="ds-space-token">{s.token}</span>
+              <span class="ds-space-value">{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Border radius -->
+      <section class="ds-section">
+        <h2 class="ds-section__title">Border Radius</h2>
+        <div class="ds-radii">
+          {[
+            { token: 'sm', value: '4px', label: 'Buttons, badges' },
+            { token: 'md', value: '8px', label: 'Inputs, dropdowns' },
+            { token: 'lg / card', value: '10px', label: 'Cards, media frames' },
+          ].map(r => (
+            <div class="ds-radius-item">
+              <div class="ds-radius-swatch" style={`border-radius: ${r.value};`}></div>
+              <p class="ds-radius-token">{r.token}</p>
+              <p class="ds-radius-value">{r.value}</p>
+              <p class="ds-radius-label">{r.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="ds-footer">
+      <p>VEGA Holdings Design System · Generated from DESIGN.md</p>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+.ds {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background: #F7F8F9;
+  min-height: 100vh;
+  direction: ltr;
+  color: #404141;
+}
+.ds-container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.ds-header {
+  background: #fff;
+  border-bottom: 1px solid #E5EBEB;
+  padding: 20px 0;
+}
+.ds-header .ds-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ds-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ds-header__title {
+  font-family: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #404141;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.ds-header__title span {
+  font-size: 11px;
+  font-weight: 700;
+  color: #627778;
+  letter-spacing: 4px;
+  display: block;
+  margin-top: 2px;
+}
+.ds-header__sub {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 2px;
+}
+.ds-back {
+  font-size: 13px;
+  color: #627778;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1.5px solid #E5EBEB;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+  direction: rtl;
+}
+.ds-back:hover { border-color: #AAC0C0; }
+
+/* Main */
+.ds-main {
+  padding: 48px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Sections */
+.ds-section__title {
+  font-family: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #404141;
+  margin-bottom: 8px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #E5EBEB;
+}
+.ds-section__desc {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+  margin-top: 4px;
+}
+
+/* Colors */
+.ds-colors {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.ds-swatch__chip {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.ds-swatch__hex {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #404141;
+  margin-bottom: 3px;
+}
+.ds-swatch__name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #404141;
+  margin-bottom: 3px;
+}
+.ds-swatch__role {
+  font-size: 11px;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* Typography */
+.ds-type-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 20px;
+  border: 1px solid #E5EBEB;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+.ds-type-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #E5EBEB;
+}
+.ds-type-row:last-child { border-bottom: none; }
+.ds-type-row__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #627778;
+  margin-bottom: 4px;
+}
+.ds-type-row__spec { font-size: 11px; color: #aaa; line-height: 1.4; }
+.ds-type-row__sample { color: #404141; text-align: right; direction: rtl; }
+.ds-type--display {
+  font-family: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+.ds-type--headline {
+  font-family: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+.ds-type--title {
+  font-family: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.ds-type--body { font-size: 15px; font-weight: 400; line-height: 1.8; }
+.ds-type--label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #627778;
+}
+
+/* Buttons */
+.ds-buttons {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.ds-btn-demo { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.ds-btn-demo__label { font-size: 11px; color: #aaa; }
+.ds-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Open Sans', Arial, sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  direction: rtl;
+}
+.ds-btn--primary { background: #627778; color: #fff; }
+.ds-btn--primary:hover { background: #404141; }
+.ds-btn--outline { background: transparent; color: #627778; border: 1.5px solid #627778; }
+.ds-btn--outline:hover { background: #627778; color: #fff; }
+.ds-btn--hero-outline { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.55); }
+.ds-btn--hero-outline:hover { background: rgba(255,255,255,0.25); }
+
+/* Brand logos */
+.ds-brand-logos {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.ds-brand-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 32px;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 220px;
+}
+.ds-brand-logo-item--light {
+  background: #fff;
+  border: 1px solid #E5EBEB;
+}
+.ds-brand-logo-item--dark {
+  background: #404141;
+}
+.ds-brand-logo-img {
+  height: 80px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Icons */
+.ds-icon-grid, .ds-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.ds-icon-item, .ds-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.ds-icon-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(98,119,120,0.10);
+}
+.ds-logo-img {
+  width: 100%;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #E5EBEB;
+  padding: 8px;
+  background: #fff;
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: filter 0.2s, opacity 0.2s;
+}
+.ds-logo-item:hover .ds-logo-img { filter: grayscale(0%); opacity: 1; }
+.ds-icon-label {
+  font-family: monospace;
+  font-size: 10px;
+  color: #aaa;
+  text-align: center;
+}
+
+/* Spacing */
+.ds-spacing {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 20px;
+}
+.ds-space-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ds-space-bar {
+  background: #AAC0C0;
+  height: 24px;
+  border-radius: 4px;
+  min-width: 8px;
+  flex-shrink: 0;
+}
+.ds-space-token {
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #627778;
+  width: 32px;
+}
+.ds-space-value { font-family: monospace; font-size: 12px; color: #888; }
+
+/* Radii */
+.ds-radii {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.ds-radius-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.ds-radius-swatch {
+  width: 80px;
+  height: 80px;
+  background: #E5EBEB;
+  border: 2px solid #AAC0C0;
+}
+.ds-radius-token { font-family: monospace; font-size: 12px; font-weight: 700; color: #627778; }
+.ds-radius-value { font-family: monospace; font-size: 12px; color: #888; }
+.ds-radius-label { font-size: 11px; color: #aaa; text-align: center; }
+
+/* Footer */
+.ds-footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: #bbb;
+  border-top: 1px solid #E5EBEB;
+  background: #fff;
+}
+
+@media (max-width: 900px) {
+  .ds-colors { grid-template-columns: repeat(3, 1fr); }
+  .ds-icon-grid, .ds-logo-grid { grid-template-columns: repeat(3, 1fr); }
+  .ds-type-row { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 600px) {
+  .ds-colors { grid-template-columns: repeat(2, 1fr); }
+  .ds-icon-grid, .ds-logo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>

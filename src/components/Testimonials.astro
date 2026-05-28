@@ -1,0 +1,146 @@
+---
+const testimonials = [
+  {
+    name: 'דנה לוי',
+    role: 'מנהלת משאבי אנוש, חברת הייטק',
+    quote: 'VEGA מצאה לנו מועמד מעולה תוך שבוע – תהליך מקצועי, מהיר ומדויק. אנחנו עובדים איתם כבר שלוש שנים ולא מתכוונים להחליף.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80',
+  },
+  {
+    name: 'יוסי כהן',
+    role: 'מנכ"ל, חברת בנייה',
+    quote: 'ניהול המבנים של VEGA חסך לנו עשרות אחוזים בעלויות תפעוליות. הצוות מקצועי ואמין, ממליץ בחום.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80',
+  },
+  {
+    name: 'מיכל שפירא',
+    role: 'מנהלת פרויקטים בכירה',
+    quote: 'כמועמדת שפנתה ל-VEGA, קיבלתי ליווי אישי ומקצועי לאורך כל הדרך. היום אני בתפקיד חלומי שמצאו עבורי.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
+  },
+  {
+    name: 'אמיר גל',
+    role: 'סמנכ"ל כספים, חברת ייצור',
+    quote: 'שיתוף הפעולה עם VEGA הוא אחד ההחלטות הטובות שקיבלנו. הם מבינים את הצרכים שלנו ומביאים את הכישרונות הנכונים.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80',
+  },
+];
+---
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials__header">
+      <p class="testimonials__eyebrow">לקוחות ומועמדים</p>
+      <h2 class="section-title testimonials__title">האמון שלנו, ההצלחה שלנו</h2>
+      <p class="testimonials__sub">מה אומרים עלינו הלקוחות והמועמדים שלנו</p>
+    </div>
+
+    <div class="testimonials__grid">
+      {testimonials.map(t => (
+        <div class="testimonials__card">
+          <div class="testimonials__stars">
+            {Array(t.stars).fill(null).map(() => (
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#AAC0C0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ))}
+          </div>
+          <p class="testimonials__quote">"{t.quote}"</p>
+          <div class="testimonials__author">
+            <img src={t.img} alt={t.name} class="testimonials__avatar" loading="lazy" />
+            <div>
+              <p class="testimonials__name">{t.name}</p>
+              <p class="testimonials__role">{t.role}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.testimonials {
+  padding: var(--section-pad);
+  background: var(--color-light);
+}
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 52px;
+}
+.testimonials__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-teal-dark);
+  margin-bottom: 10px;
+}
+.testimonials__title {
+  font-size: clamp(26px, 4vw, 38px);
+  margin-bottom: 12px;
+}
+.testimonials__sub {
+  color: #888;
+  font-size: 16px;
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.testimonials__card {
+  background: var(--color-white);
+  border: 1px solid var(--color-teal-light);
+  border-radius: 10px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.testimonials__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(98,119,120,0.12);
+}
+.testimonials__stars {
+  display: flex;
+  gap: 3px;
+}
+.testimonials__quote {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #555;
+  flex: 1;
+}
+.testimonials__author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testimonials__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.testimonials__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.testimonials__role {
+  font-size: 12px;
+  color: #999;
+}
+
+@media (max-width: 1024px) {
+  .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .testimonials__grid { grid-template-columns: 1fr; }
+}
+</style>

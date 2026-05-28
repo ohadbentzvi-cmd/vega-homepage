@@ -1,0 +1,356 @@
+---
+const categories = ['הכל', 'הנדסה', 'כלכלה', 'לוגיסטיקה', 'מנהל', 'מכירות', 'בנייה'];
+
+const jobs = [
+  {
+    title: 'דרוש/ה עובד/ת ניקיון',
+    location: 'תל אביב-יפו',
+    type: 'משרה מלאה',
+    category: 'מנהל',
+    salary: '₪6,000 – ₪8,000',
+    desc: 'דרוש/ה עובד/ת ניקיון לניקיון בסניפים במרכז. ניסיון קודם יתרון. עבודה בשעות הבוקר.',
+    badge: 'חדש',
+  },
+  {
+    title: 'מנהל/ת תחזוקה בכיר/ה',
+    location: 'ירושלים',
+    type: 'משרה מלאה',
+    category: 'בנייה',
+    salary: '₪12,000 – ₪18,000',
+    desc: 'ניהול צוות תחזוקה ופיקוח על עבודות שוטפות במתחם מגורים גדול. ניסיון של 5 שנים לפחות.',
+    badge: 'דחוף',
+  },
+  {
+    title: 'מהנדס/ת פרויקטים',
+    location: 'חיפה',
+    type: 'משרה מלאה',
+    category: 'הנדסה',
+    salary: '₪15,000 – ₪22,000',
+    desc: 'ניהול פרויקטי בנייה ותשתיות. תואר בהנדסה אזרחית / בניין נדרש. רישיון מהנדס רשוי.',
+    badge: null,
+  },
+  {
+    title: 'רכז/ת שכר וכ"א',
+    location: 'פתח תקוה',
+    type: 'משרה מלאה',
+    category: 'כלכלה',
+    salary: '₪8,000 – ₪12,000',
+    desc: 'ניהול תהליכי שכר עבור 200+ עובדים, תיאום עם ממשקים פנים וחוץ ארגוניים.',
+    badge: null,
+  },
+  {
+    title: 'נהג/ת מלגזה מוסמך/ת',
+    location: 'אשדוד',
+    type: 'משמרות',
+    category: 'לוגיסטיקה',
+    salary: '₪7,500 – ₪10,000',
+    desc: 'נהג/ת מלגזה למחסן לוגיסטי גדול. רישיון בתוקף ועבודה בסביבה ממוחשבת.',
+    badge: 'חדש',
+  },
+  {
+    title: 'מנהל/ת מכירות אזורי/ת',
+    location: 'תל אביב',
+    type: 'משרה מלאה',
+    category: 'מכירות',
+    salary: '₪16,000 – ₪25,000',
+    desc: 'ניהול צוות מכירות ופיתוח לקוחות עסקיים. ניסיון של 3 שנים בניהול מכירות.',
+    badge: null,
+  },
+];
+---
+
+<section class="jobs" id="jobs">
+  <div class="jobs__header-bg">
+    <div class="container jobs__header">
+      <div>
+        <p class="jobs__eyebrow">הזדמנויות תעסוקה</p>
+        <h2 class="section-title jobs__title">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="jobs__title-icon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          VEGA דרושים
+        </h2>
+      </div>
+      <a href="#contact" class="btn-primary">שלח/י קו"ח</a>
+    </div>
+  </div>
+
+  <div class="container jobs__body">
+    <div class="jobs__filters">
+      <div class="jobs__search-wrap">
+        <svg class="jobs__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="חיפוש לפי תפקיד, עיר..." class="jobs__search" id="jobSearch" />
+      </div>
+      <div class="jobs__cats">
+        {categories.map((cat, i) => (
+          <button class={`jobs__cat ${i === 0 ? 'active' : ''}`} data-cat={cat}>{cat}</button>
+        ))}
+      </div>
+    </div>
+
+    <div class="jobs__grid" id="jobsGrid">
+      {jobs.map(j => (
+        <div class="job-card" data-cat={j.category}>
+          <div class="job-card__head">
+            <div>
+              <h3 class="job-card__title">{j.title}</h3>
+              <div class="job-card__meta">
+                <span class="job-card__meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {j.location}
+                </span>
+                <span class="job-card__meta-item">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  {j.type}
+                </span>
+              </div>
+            </div>
+            {j.badge && <span class={`job-card__badge ${j.badge === 'דחוף' ? 'urgent' : ''}`}>{j.badge}</span>}
+          </div>
+          <p class="job-card__desc">{j.desc}</p>
+          <div class="job-card__footer">
+            <span class="job-card__salary">{j.salary}</span>
+            <a href="#contact" class="job-card__apply">הגש/י מועמדות</a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="jobs__cta">
+      <p>לא מצאת את המשרה שלך?</p>
+      <a href="#contact" class="btn-outline">שלח/י קו"ח פתוח</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.jobs {
+  background: var(--color-white);
+}
+.jobs__header-bg {
+  background: var(--color-dark);
+  padding: 48px 0 40px;
+}
+.jobs__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.jobs__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-teal-mid);
+  margin-bottom: 8px;
+}
+.jobs__title {
+  font-size: clamp(26px, 4vw, 40px);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.jobs__title-icon { color: var(--color-teal-mid); }
+
+.jobs__body {
+  padding: 40px 24px 80px;
+}
+
+.jobs__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.jobs__search-wrap {
+  position: relative;
+}
+.jobs__search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+.jobs__search {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 42px 12px 16px;
+  border: 1.5px solid var(--color-teal-light);
+  border-radius: 6px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  color: var(--color-dark);
+  background: var(--color-light);
+  direction: rtl;
+  transition: border-color 0.2s;
+}
+.jobs__search:focus {
+  outline: none;
+  border-color: var(--color-teal-mid);
+  background: var(--color-white);
+}
+.jobs__cats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.jobs__cat {
+  background: var(--color-light);
+  border: 1.5px solid var(--color-teal-light);
+  color: var(--color-dark);
+  padding: 7px 18px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font-base);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.jobs__cat:hover, .jobs__cat.active {
+  background: var(--color-teal-dark);
+  border-color: var(--color-teal-dark);
+  color: var(--color-white);
+}
+
+.jobs__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.job-card {
+  border: 1.5px solid var(--color-teal-light);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+.job-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(98,119,120,0.12);
+  border-color: var(--color-teal-mid);
+}
+.job-card.hidden { display: none; }
+
+.job-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.job-card__title {
+  font-family: var(--font-condensed);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 6px;
+}
+.job-card__meta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.job-card__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #888;
+}
+.job-card__badge {
+  background: var(--color-teal-light);
+  color: var(--color-teal-dark);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.job-card__badge.urgent {
+  background: #FFF0EE;
+  color: #C0412A;
+}
+.job-card__desc {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.65;
+  flex: 1;
+}
+.job-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-teal-light);
+  padding-top: 14px;
+  gap: 10px;
+}
+.job-card__salary {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-teal-dark);
+}
+.job-card__apply {
+  background: var(--color-teal-dark);
+  color: var(--color-white);
+  padding: 7px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.job-card__apply:hover { background: var(--color-dark); }
+
+.jobs__cta {
+  margin-top: 48px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.jobs__cta p { color: #888; font-size: 15px; }
+
+@media (max-width: 900px) {
+  .jobs__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .jobs__grid { grid-template-columns: 1fr; }
+  .jobs__cats { gap: 6px; }
+}
+</style>
+
+<script>
+  const searchInput = document.getElementById('jobSearch') as HTMLInputElement;
+  const catBtns = document.querySelectorAll('.jobs__cat');
+  const cards = document.querySelectorAll('.job-card') as NodeListOf<HTMLElement>;
+  let activecat = 'הכל';
+
+  function filterJobs() {
+    const q = searchInput.value.trim().toLowerCase();
+    cards.forEach(card => {
+      const cat = card.dataset.cat || '';
+      const text = card.textContent?.toLowerCase() || '';
+      const matchCat = activecat === 'הכל' || cat === activecat;
+      const matchSearch = !q || text.includes(q);
+      card.classList.toggle('hidden', !(matchCat && matchSearch));
+    });
+  }
+
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activecat = (btn as HTMLElement).dataset.cat || 'הכל';
+      filterJobs();
+    });
+  });
+
+  searchInput?.addEventListener('input', filterJobs);
+</script>

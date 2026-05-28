@@ -1,0 +1,191 @@
+---
+const services = [
+  {
+    num: '01',
+    id: 'services-1',
+    title: 'מה אנו: גייסנו אלפים',
+    subtitle: 'גיוס עובדים ו-HR',
+    body: `VEGA הינה חברת גיוס עובדים ותיקה ומובילה, המתמחה בגיוס עובדים לכל רמות הארגון.
+לאורך השנים גייסנו אלפי עובדים למגוון רחב של חברות – מסטארטאפים ועד תאגידים גדולים.
+הצוות שלנו מבין את השוק ומכיר את הכישרונות הנכונים לכל תפקיד.`,
+    bullets: [
+      'גיוס מנהלים ועובדים לכל הרמות',
+      'מאגר מועמדים רחב ועדכני',
+      'תהליך מהיר וממוקד',
+      'ליווי לאחר השמה',
+    ],
+    imgSrc: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80',
+    imgAlt: 'גיוס עובדים',
+    reverse: false,
+  },
+  {
+    num: '02',
+    id: 'services-2',
+    title: 'שירותי גיוס:',
+    subtitle: 'השמה מקצועית',
+    body: `אנחנו מציעים מגוון שירותי גיוס והשמה המותאמים לצרכי הארגון שלך.
+מחיפוש יזום ועד בדיקות רקע מקיפות – תהליך הגיוס שלנו מקיף ויסודי.`,
+    bullets: [
+      'חיפוש יזום (Headhunting)',
+      'הסינון ראשוני וראיונות',
+      'בדיקות רקע ואימות ניסיון',
+      'השמה זמנית וקבועה',
+      'גיוס המוני לפרויקטים',
+    ],
+    imgSrc: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80',
+    imgAlt: 'שירותי גיוס',
+    reverse: true,
+  },
+  {
+    num: '03',
+    id: 'services-3',
+    title: 'ניהול ותחזוקת מבנים',
+    subtitle: 'ניהול נכסים',
+    body: `מחלקת ניהול המבנים של VEGA מספקת שירותי ניהול ותחזוקה מקיפים לנכסים מסחריים
+ומגורים ברחבי הארץ. אנחנו מבטיחים תפעול תקין, ניקיון, בטיחות וחיסכון בעלויות.`,
+    bullets: [
+      'ניהול שוטף של הנכס',
+      'תחזוקה מונעת ותיקונים',
+      'ניהול קבלני משנה',
+      'דיווח ושקיפות מלאה לבעל הנכס',
+      'חיסכון בעלויות תפעוליות',
+    ],
+    imgSrc: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80',
+    imgAlt: 'ניהול מבנים',
+    reverse: false,
+  },
+];
+---
+
+<div class="services">
+  {services.map((s) => (
+    <section class={`service ${s.reverse ? 'service--reverse' : ''}`} id={s.id}>
+      <div class="container service__inner">
+        <div class="service__content">
+          <span class="service__num">{s.num}</span>
+          <p class="service__eyebrow">{s.subtitle}</p>
+          <h2 class="service__title section-title">{s.title}</h2>
+          <p class="service__body">{s.body}</p>
+          <ul class="service__bullets">
+            {s.bullets.map(b => (
+              <li class="service__bullet">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                {b}
+              </li>
+            ))}
+          </ul>
+          <a href="#contact" class="btn-primary">פרטים נוספים</a>
+        </div>
+        <div class="service__media">
+          <img src={s.imgSrc} alt={s.imgAlt} class="service__img" loading="lazy" />
+        </div>
+      </div>
+    </section>
+  ))}
+</div>
+
+<style>
+.services { background: var(--color-white); }
+
+.service {
+  padding: 80px 0;
+  border-top: 1px solid var(--color-teal-light);
+}
+.service:first-child { border-top: none; }
+
+.service__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.service--reverse .service__inner {
+  direction: ltr;
+}
+.service--reverse .service__content {
+  direction: rtl;
+}
+
+.service__content { position: relative; }
+.service__num {
+  font-family: var(--font-condensed);
+  font-size: 100px;
+  font-weight: 700;
+  color: var(--color-teal-light);
+  line-height: 1;
+  position: absolute;
+  top: -30px;
+  right: -10px;
+  z-index: 0;
+  user-select: none;
+}
+.service__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-teal-dark);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+.service__title {
+  font-size: clamp(24px, 3.5vw, 36px);
+  color: var(--color-dark);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.service__body {
+  color: #666;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  white-space: pre-line;
+  position: relative;
+  z-index: 1;
+}
+.service__bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+.service__bullet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--color-dark);
+}
+.service__bullet svg { color: var(--color-teal-dark); flex-shrink: 0; }
+
+.service__media {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(64,65,65,0.12);
+  aspect-ratio: 4/3;
+}
+.service__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.service__media:hover .service__img { transform: scale(1.03); }
+
+@media (max-width: 900px) {
+  .service__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    direction: rtl !important;
+  }
+  .service--reverse .service__inner { direction: rtl; }
+  .service__num { font-size: 72px; top: -20px; }
+  .service__media { order: -1; }
+  .service--reverse .service__media { order: -1; }
+}
+</style>

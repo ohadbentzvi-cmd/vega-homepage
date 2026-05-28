@@ -1,0 +1,221 @@
+---
+---
+
+<section class="contact" id="contact">
+  <div class="contact__bg">
+    <img
+      src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=70"
+      alt="משרדי VEGA"
+      class="contact__bg-img"
+      loading="lazy"
+    />
+    <div class="contact__overlay"></div>
+  </div>
+
+  <div class="container contact__inner">
+    <div class="contact__text">
+      <p class="contact__eyebrow">צור קשר</p>
+      <h2 class="section-title contact__title">דברו איתנו –<br/>אנחנו כאן בשבילכם</h2>
+      <p class="contact__sub">
+        נשמח לשמוע ממכם! בין אם אתם מחפשים עובד, מחפשים עבודה,
+        או זקוקים לשירותי ניהול מבנים – צוות VEGA זמין עבורכם.
+      </p>
+      <div class="contact__info">
+        <a href="tel:050-000-0000" class="contact__info-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.12a16 16 0 0 0 6 6l1.48-1.48a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16z"/></svg>
+          050-000-0000
+        </a>
+        <a href="mailto:info@vega-il.co.il" class="contact__info-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          info@vega-il.co.il
+        </a>
+        <span class="contact__info-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          רח' הרצל 1, תל אביב
+        </span>
+      </div>
+    </div>
+
+    <form class="contact__form" id="contactForm">
+      <div class="contact__form-grid">
+        <div class="contact__field">
+          <label for="fname">שם פרטי</label>
+          <input id="fname" type="text" placeholder="ישראל" required />
+        </div>
+        <div class="contact__field">
+          <label for="lname">שם משפחה</label>
+          <input id="lname" type="text" placeholder="ישראלי" required />
+        </div>
+        <div class="contact__field">
+          <label for="email">אימייל</label>
+          <input id="email" type="email" placeholder="israel@example.com" required />
+        </div>
+        <div class="contact__field">
+          <label for="phone">טלפון</label>
+          <input id="phone" type="tel" placeholder="050-000-0000" />
+        </div>
+        <div class="contact__field contact__field--full">
+          <label for="subject">נושא</label>
+          <select id="subject">
+            <option value="">בחר/י נושא...</option>
+            <option>אני מחפש/ת עובדים</option>
+            <option>אני מחפש/ת עבודה</option>
+            <option>שירותי ניהול מבנים</option>
+            <option>אחר</option>
+          </select>
+        </div>
+        <div class="contact__field contact__field--full">
+          <label for="message">הודעה</label>
+          <textarea id="message" rows="4" placeholder="ספר/י לנו עוד..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn-primary contact__submit">שלח/י הודעה</button>
+      <p class="contact__success" id="contactSuccess">תודה! נחזור אליך בקרוב.</p>
+    </form>
+  </div>
+</section>
+
+<style>
+.contact {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+}
+.contact__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.contact__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.contact__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(64,65,65,0.85);
+}
+.contact__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.contact__eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-teal-mid);
+  margin-bottom: 12px;
+}
+.contact__title {
+  font-size: clamp(26px, 4vw, 40px);
+  color: var(--color-white);
+  margin-bottom: 18px;
+}
+.contact__sub {
+  color: rgba(255,255,255,0.75);
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.contact__info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  transition: color 0.2s;
+}
+.contact__info-item svg { color: var(--color-teal-mid); flex-shrink: 0; }
+.contact__info-item:hover { color: var(--color-white); }
+
+.contact__form {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 36px;
+}
+.contact__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.contact__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.contact__field--full { grid-column: 1 / -1; }
+.contact__field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+.contact__field input,
+.contact__field select,
+.contact__field textarea {
+  padding: 10px 14px;
+  border: 1.5px solid var(--color-teal-light);
+  border-radius: 6px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  color: var(--color-dark);
+  background: var(--color-light);
+  direction: rtl;
+  transition: border-color 0.2s;
+  width: 100%;
+  resize: vertical;
+}
+.contact__field input:focus,
+.contact__field select:focus,
+.contact__field textarea:focus {
+  outline: none;
+  border-color: var(--color-teal-mid);
+  background: var(--color-white);
+}
+.contact__submit { width: 100%; padding: 14px; font-size: 16px; }
+.contact__success {
+  display: none;
+  color: var(--color-teal-dark);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 12px;
+}
+.contact__success.show { display: block; }
+
+@media (max-width: 900px) {
+  .contact__inner { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .contact__form-grid { grid-template-columns: 1fr; }
+  .contact__form { padding: 24px; }
+}
+</style>
+
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const success = document.getElementById('contactSuccess');
+    const btn = (e.target as HTMLFormElement).querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    setTimeout(() => {
+      (e.target as HTMLFormElement).reset();
+      btn.disabled = false;
+      btn.textContent = 'שלח/י הודעה';
+      success?.classList.add('show');
+      setTimeout(() => success?.classList.remove('show'), 4000);
+    }, 800);
+  });
+</script>

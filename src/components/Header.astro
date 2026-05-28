@@ -1,0 +1,269 @@
+---
+const navLinks = [
+  { label: 'דף הבית', href: '#hero', active: true },
+  { label: 'אודות', href: '#about' },
+  { label: 'תחומי פעילות', href: '#services-1' },
+  { label: 'דרושים', href: '#jobs' },
+  { label: 'יצירת קשר', href: '#contact' },
+];
+---
+
+<header class="header" id="site-header">
+  <!-- Top info bar -->
+  <div class="header__topbar">
+    <div class="container header__topbar-inner">
+      <div class="header__topbar-info">
+        <a href="tel:050-000-0000" class="header__topbar-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.12a16 16 0 0 0 6 6l1.48-1.48a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16z"/></svg>
+          050-000 00 00
+        </a>
+        <a href="#contact" class="header__topbar-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          כתובת עיר רחוב מס
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="header__nav">
+    <div class="container header__nav-inner">
+      <!-- Logo (right side in RTL) -->
+      <a href="#hero" class="header__logo" aria-label="VEGA Holdings דף הבית">
+        <img src="/logos/VEGA-LOGO-REGULAR.png" alt="VEGA Holdings" class="header__logo-img" />
+      </a>
+
+      <!-- Nav links -->
+      <ul class="header__links" role="list">
+        {navLinks.map(link => (
+          <li>
+            <a href={link.href} class={`header__link ${link.active ? 'header__link--active' : ''}`}>
+              {link.label}
+            </a>
+          </li>
+        ))}
+        <li class="header__lang">
+          <button class="header__lang-btn" aria-label="שפה">
+            HE
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+        </li>
+      </ul>
+
+      <!-- CTA button -->
+      <a href="#contact" class="header__cta">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        מרכז מידע
+      </a>
+
+      <!-- Mobile burger -->
+      <button class="header__burger" aria-label="תפריט" id="burgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="header__mobile" id="mobileMenu">
+    <ul class="header__mobile-list">
+      {navLinks.map(link => (
+        <li><a href={link.href} class="header__mobile-link">{link.label}</a></li>
+      ))}
+    </ul>
+    <a href="#contact" class="header__cta header__cta--mobile">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      מרכז מידע
+    </a>
+  </div>
+</header>
+
+<style>
+/* ── Top info bar ── */
+.header__topbar {
+  background: var(--color-dark);
+  padding: 7px 0;
+}
+.header__topbar-inner {
+  display: flex;
+  justify-content: flex-end;
+}
+.header__topbar-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+.header__topbar-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255,255,255,0.8);
+  font-size: 12.5px;
+  font-family: var(--font-base);
+  transition: color 0.2s;
+  direction: rtl;
+}
+.header__topbar-item:hover { color: #fff; }
+.header__topbar-item svg { flex-shrink: 0; color: var(--color-teal-mid); }
+
+/* ── Main nav ── */
+.header__nav {
+  background: #fff;
+  border-bottom: 1px solid rgba(98,119,120,0.12);
+  padding: 0;
+}
+.header__nav-inner {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 72px;
+  gap: 0;
+}
+
+/* Logo */
+.header__logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+.header__logo-img {
+  height: 64px;
+  width: auto;
+  display: block;
+}
+
+/* Nav links */
+.header__links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 0;
+  margin: 0 auto;
+}
+.header__link {
+  display: block;
+  padding: 0 18px;
+  height: 72px;
+  line-height: 72px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-dark);
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.2s;
+}
+.header__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 18px;
+  left: 18px;
+  height: 2px;
+  background: var(--color-teal-dark);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.header__link:hover { color: var(--color-teal-dark); }
+.header__link:hover::after { transform: scaleX(1); }
+.header__link--active {
+  color: var(--color-teal-dark);
+  font-weight: 600;
+}
+.header__link--active::after { transform: scaleX(1); }
+
+/* Language switcher */
+.header__lang { display: flex; align-items: center; }
+.header__lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-dark);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.header__lang-btn:hover { background: var(--color-light); }
+
+/* CTA button */
+.header__cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-teal-dark);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0 22px;
+  white-space: nowrap;
+  transition: background 0.2s;
+  text-decoration: none;
+  align-self: center;
+  height: 42px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.header__cta:hover { background: var(--color-dark); }
+.header__cta--mobile { margin: 16px 24px 8px; }
+
+/* Burger */
+.header__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  align-self: center;
+}
+.header__burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-dark);
+  border-radius: 2px;
+}
+
+/* Mobile menu */
+.header__mobile {
+  display: none;
+  background: #fff;
+  border-top: 1px solid var(--color-teal-light);
+  padding: 8px 0 16px;
+}
+.header__mobile.open { display: block; }
+.header__mobile-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+.header__mobile-link {
+  display: block;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-dark);
+  border-bottom: 1px solid var(--color-light);
+}
+
+@media (max-width: 900px) {
+  .header__links { display: none; }
+  .header__cta:not(.header__cta--mobile) { display: none; }
+  .header__burger { display: flex; }
+}
+</style>
+
+<script>
+  const burger = document.getElementById('burgerBtn');
+  const menu = document.getElementById('mobileMenu');
+  burger?.addEventListener('click', () => menu?.classList.toggle('open'));
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+</script>

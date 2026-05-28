@@ -1,0 +1,137 @@
+---
+const cards = [
+  { img: '/icons/card-award.png',     alt: 'מעל 25 שנות ניסיון' },
+  { img: '/icons/card-location.png',  alt: 'פריסה ארצית ומעל 1000 עובדים' },
+  { img: '/icons/card-stopwatch.png', alt: 'זמינות גבוהה ומהירות תגובה' },
+  { img: '/icons/card-handshake.png', alt: 'יחס אישי ושותפות עם הלקוח' },
+  { img: '/icons/card-clipboard.png', alt: 'ניסיון מוכח בניהול פרויקטים מורכבים' },
+  { img: '/icons/card-shield.png',    alt: 'ניהול מסודר ושקיפות מלאה' },
+];
+---
+
+<section class="about" id="about">
+  <div class="container">
+    <!-- Centered logo block -->
+    <div class="about__brand">
+      <img src="/logos/VEGA-LOGO-REGULAR.png" alt="VEGA Holdings" class="about__brand-logo" />
+      <p class="about__brand-tagline">אנחנו שירות שחושב קדימה.</p>
+      <p class="about__brand-body">
+        <strong>VEGA HOLDINGS</strong> היא חברת השירותים הארצית המתמחה בכוח אדם, ניקיון ואחזקה ומניהול מבנים.
+        מאז שנת 2000, אנחנו מלווים לקוחות מהמגזר המוסדי, הציבורי והפרטי, ומנהלים פרויקטים מורכבים מידי יום.
+        <strong>העבודה שלנו מבוססת על שלושה עקרונות:</strong> זמינות מלאה, שקיפות מלאה ושמירה על זכויות העובדים ורווחתם.
+        <strong>המטרה שלנו פשוטה:</strong> לתת לכם שקט תפעולי לאורך זמן.
+      </p>
+      <a href="#services-1" class="about__readmore">Read more</a>
+    </div>
+
+    <!-- Why section -->
+    <h2 class="about__why-title">
+      <span class="about__why-why">למה</span> VEGA HOLDINGS?
+    </h2>
+
+    <!-- Feature cards grid -->
+    <div class="about__cards">
+      {cards.map(card => (
+        <div class="about__card">
+          <img src={card.img} alt={card.alt} class="about__card-img" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.about {
+  padding: 72px 0 80px;
+  background: #fff;
+}
+
+/* Brand block */
+.about__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 60px;
+}
+.about__brand-logo {
+  height: 90px;
+  width: auto;
+  display: block;
+  margin-bottom: 16px;
+}
+.about__brand-tagline {
+  font-family: var(--font-condensed);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-teal-dark);
+  margin-bottom: 18px;
+}
+.about__brand-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.about__readmore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-teal-dark);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 36px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.about__readmore:hover { background: var(--color-dark); }
+
+/* Why heading */
+.about__why-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: 40px;
+  line-height: 1.15;
+}
+.about__why-why {
+  color: var(--color-teal-mid);
+}
+
+/* Feature cards */
+.about__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.about__card {
+  overflow: hidden;
+  transition: transform 0.25s ease;
+}
+.about__card:hover {
+  transform: translateY(-4px);
+}
+.about__card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* PNGs have ~25% transparent padding top/bottom (336px & 344px out of 1350px).
+     Convert to % of width: 25% × (1350/1080) ≈ 31% */
+  margin-top: -31%;
+  margin-bottom: -31%;
+}
+
+@media (max-width: 768px) {
+  .about__cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .about__cards { grid-template-columns: 1fr; }
+}
+</style>

@@ -1,0 +1,90 @@
+---
+const logos = [
+  { src: '/icons/logo-alrov.png',    alt: 'אלרוב' },
+  { src: '/icons/logo-atlas.png',    alt: 'מלונות אטלס' },
+  { src: '/icons/logo-mishkal.png',  alt: 'משכל' },
+  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות' },
+  { src: '/icons/logo-cbre.png',     alt: 'CBRE' },
+  { src: '/icons/logo-carlton.png',  alt: 'קרלטון תל אביב' },
+];
+---
+
+<section class="logos">
+  <div class="logos__wrap">
+    <div class="logos__track" aria-hidden="true">
+      {[...logos, ...logos, ...logos].map(logo => (
+        <div class="logos__item">
+          <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.logos {
+  background: var(--color-white);
+  padding: 32px 0;
+  border-top: 1px solid var(--color-teal-light);
+  border-bottom: 1px solid var(--color-teal-light);
+  overflow: hidden;
+}
+.logos__wrap {
+  position: relative;
+  overflow: hidden;
+}
+.logos__wrap::before,
+.logos__wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 1;
+  pointer-events: none;
+}
+.logos__wrap::before {
+  right: 0;
+  background: linear-gradient(to left, #fff, transparent);
+}
+.logos__wrap::after {
+  left: 0;
+  background: linear-gradient(to right, #fff, transparent);
+}
+.logos__track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: max-content;
+  animation: scrollLogos 28s linear infinite;
+}
+.logos__track:hover { animation-play-state: paused; }
+.logos__item {
+  padding: 0 32px;
+  border-left: 1px solid var(--color-teal-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+}
+.logos__item:last-child { border-left: none; }
+.logos__img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.65;
+  transition: filter 0.25s, opacity 0.25s;
+}
+.logos__item:hover .logos__img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+@keyframes scrollLogos {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logos__track { animation: none; }
+}
+</style>

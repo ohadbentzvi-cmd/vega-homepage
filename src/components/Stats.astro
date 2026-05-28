@@ -1,0 +1,80 @@
+---
+const stats = [
+  { num: '+100', label: 'לקוחות וארגונים' },
+  { num: '24/7', label: 'זמינות ומענה מהיר' },
+  { num: '+1000', label: 'עובדים בפריסה ארצית' },
+  { num: '+25', label: 'שנות ניסיון' },
+];
+---
+
+<section class="stats" id="stats">
+  <div class="container">
+    <div class="stats__grid">
+      {stats.map((s, i) => (
+        <div class="stats__item">
+          {i > 0 && <div class="stats__divider" aria-hidden="true" />}
+          <span class="stats__num">{s.num}</span>
+          <span class="stats__label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.stats {
+  background: var(--color-teal-mid);
+  padding: 28px 0;
+}
+.stats__grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+  flex: 1;
+  padding: 8px 16px;
+  position: relative;
+}
+.stats__divider {
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: rgba(255,255,255,0.35);
+}
+.stats__num {
+  font-family: var(--font-condensed);
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.stats__label {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: 0.2px;
+}
+
+@media (max-width: 600px) {
+  .stats__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .stats__divider { display: none; }
+  .stats__item {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    border-left: 1px solid rgba(255,255,255,0.2);
+  }
+  .stats__item:nth-child(odd) { border-left: none; }
+  .stats__item:nth-last-child(-n+2) { border-bottom: none; }
+}
+</style>
