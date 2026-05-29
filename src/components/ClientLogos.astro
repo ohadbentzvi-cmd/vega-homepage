@@ -1,14 +1,7 @@
 ---
 import { sanityClient, urlFor, PARTNERS_QUERY } from '../lib/sanity';
 
-const STATIC_LOGOS = [
-  { src: '/icons/logo-atlas.png',    alt: 'מלונות אטלס',    href: null },
-  { src: '/icons/logo-alrov.png',    alt: 'אלרוב',          href: null },
-  { src: '/icons/logo-mishkal.png',  alt: 'משכל',           href: null },
-  { src: '/icons/logo-cbre.png',     alt: 'CBRE',           href: null },
-  { src: '/icons/logo-carlton.png',  alt: 'קרלטון תל אביב', href: null },
-  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות', href: null },
-];
+const STATIC_LOGOS: { src: string; alt: string; href: null }[] = [];
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
 let logos = STATIC_LOGOS;
