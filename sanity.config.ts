@@ -1,13 +1,13 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemaTypes'
+import { schemaTypes } from './studio/schemaTypes'
 
 export default defineConfig({
   name: 'vega-holdings',
   title: 'VEGA Holdings CMS',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-  dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
+  projectId: 'f9e1hsbw',
+  dataset: 'production',
   plugins: [structureTool(), visionTool()],
   schema: { types: schemaTypes },
 })
