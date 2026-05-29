@@ -110,17 +110,19 @@ if (projectId) {
   box-shadow: 0 2px 12px rgba(64,65,65,0.07);
   aspect-ratio: 1 / 1;
   transition: box-shadow 0.2s, transform 0.2s;
-  display: flex;
+  position: relative;
+  overflow: hidden;
 }
 .logos-card:hover {
   box-shadow: 0 6px 24px rgba(98,119,120,0.14);
   transform: translateY(-2px);
 }
 .logos-card__inner {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1;
   padding: 10%;
 }
 .logos-card__img {
