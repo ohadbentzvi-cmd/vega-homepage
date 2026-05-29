@@ -105,19 +105,21 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   <!-- ── Search panel ── -->
   <div class="jobs__search-panel">
     <div class="container jobs__search-container">
-      <div class="jobs__tabs">
-        <button class="jobs__tab active" data-panel="free">חיפוש חופשי</button>
-        <button class="jobs__tab" data-panel="field">חיפוש לפי תחום</button>
+      <div class="jobs__tabs" role="tablist" aria-label="אפשרויות חיפוש">
+        <button class="jobs__tab active" data-panel="free" role="tab" aria-selected="true" aria-controls="panel-free" id="tab-free">חיפוש חופשי</button>
+        <button class="jobs__tab" data-panel="field" role="tab" aria-selected="false" aria-controls="panel-field" id="tab-field">חיפוש לפי תחום</button>
       </div>
 
-      <div class="jobs__panel" id="panel-free">
+      <div class="jobs__panel" id="panel-free" role="tabpanel" aria-labelledby="tab-free">
         <div class="jobs__inputs-row">
+          <label for="searchQuery" class="sr-only">חיפוש לפי תפקיד</label>
           <input type="text" placeholder="במה היית רוצה לעבוד?" class="jobs__input" id="searchQuery" />
+          <label for="searchLocation" class="sr-only">חיפוש לפי מיקום</label>
           <input type="text" placeholder="איפה?" class="jobs__input" id="searchLocation" />
         </div>
       </div>
 
-      <div class="jobs__panel jobs__panel--hidden" id="panel-field">
+      <div class="jobs__panel jobs__panel--hidden" id="panel-field" role="tabpanel" aria-labelledby="tab-field">
         <div class="jobs__cats-row">
           {categories.map(cat => (
             <button class="jobs__field-cat" data-cat={cat}>{cat}</button>
@@ -196,7 +198,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 
       <!-- אזור -->
       <div class="filter-group open" data-filter-type="location">
-        <button class="filter-group__toggle">
+        <button class="filter-group__toggle" aria-expanded="true">
           <span>אזור</span>
           <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
         </button>
@@ -212,7 +214,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 
       <!-- סוג/היקף משרה -->
       <div class="filter-group" data-filter-type="type">
-        <button class="filter-group__toggle">
+        <button class="filter-group__toggle" aria-expanded="false">
           <span>סוג/היקף משרה</span>
           <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -228,7 +230,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 
       <!-- תחום -->
       <div class="filter-group" data-filter-type="category">
-        <button class="filter-group__toggle">
+        <button class="filter-group__toggle" aria-expanded="false">
           <span>תחום</span>
           <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -265,7 +267,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 .jobs__banner-title {
   font-family: var(--font-condensed);
   font-size: clamp(40px, 6vw, 64px);
-  font-weight: 900;
+  font-weight: 800;
   color: var(--color-white);
   line-height: 1;
 }
@@ -393,7 +395,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 /* ── Job count ── */
 .jobs__count {
   font-size: 14px;
-  color: #666;
+  color: rgba(64,65,65,0.55);
   margin-bottom: 20px;
   padding-bottom: 16px;
   border-bottom: 1.5px solid var(--color-teal-light);
@@ -425,8 +427,8 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   background: none;
   border: none;
   cursor: pointer;
-  padding: 2px;
-  color: #bbb;
+  padding: 6px;
+  color: rgba(64,65,65,0.3);
   display: flex;
   align-items: center;
   transition: color 0.2s;
@@ -441,7 +443,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 }
 .job-card__ref {
   font-size: 12px;
-  color: #999;
+  color: rgba(64,65,65,0.4);
 }
 .job-card__check {
   width: 15px;
@@ -468,13 +470,13 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   align-items: center;
   gap: 5px;
   font-size: 13px;
-  color: #777;
+  color: rgba(64,65,65,0.5);
 }
 .job-card__meta-item svg { flex-shrink: 0; }
 
 .job-card__desc {
   font-size: 13px;
-  color: #555;
+  color: rgba(64,65,65,0.65);
   line-height: 1.7;
   margin-bottom: 16px;
   display: -webkit-box;
@@ -496,7 +498,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   font-weight: 600;
   color: var(--color-teal-dark);
   background: transparent;
-  transition: all 0.2s;
+  transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
 .job-card__btn-apply:hover {
@@ -590,7 +592,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  color: #555;
+  color: rgba(64,65,65,0.65);
   cursor: pointer;
   direction: rtl;
 }
@@ -610,7 +612,6 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
     direction: rtl;
   }
   .jobs__sidebar {
-    order: -1;
     position: static;
   }
   .jobs__inputs-row { flex-direction: column; }
@@ -673,8 +674,9 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   // ── Tab switching ─────────────────────────────────────────────
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
+      tabs.forEach(t => { t.classList.remove('active'); (t as HTMLElement).setAttribute('aria-selected', 'false'); });
       tab.classList.add('active');
+      (tab as HTMLElement).setAttribute('aria-selected', 'true');
       const panel = (tab as HTMLElement).dataset.panel;
       panelFree.classList.toggle('jobs__panel--hidden', panel !== 'free');
       panelField.classList.toggle('jobs__panel--hidden', panel !== 'field');
@@ -717,6 +719,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
       const isOpen = group.classList.contains('open');
       group.classList.toggle('open', !isOpen);
       opts.classList.toggle('filter-group__options--hidden', isOpen);
+      (btn as HTMLElement).setAttribute('aria-expanded', String(!isOpen));
     });
   });
 
@@ -727,8 +730,10 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
     allExpanded = !allExpanded;
     document.querySelectorAll('.filter-group').forEach(group => {
       const opts = group.querySelector('.filter-group__options')!;
+      const toggle = group.querySelector('.filter-group__toggle')!;
       group.classList.toggle('open', allExpanded);
       opts.classList.toggle('filter-group__options--hidden', !allExpanded);
+      (toggle as HTMLElement).setAttribute('aria-expanded', String(allExpanded));
     });
     expandAllBtn.textContent = allExpanded ? 'סגור הכל' : 'פתח הכל';
   });

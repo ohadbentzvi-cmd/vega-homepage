@@ -126,7 +126,21 @@ const navLinks = [
 }
 
 @media (max-width: 900px) {
-  .footer__nav { display: none; }
-  .footer__inner { height: auto; padding: 20px 0; flex-wrap: wrap; }
+  .footer__inner {
+    height: auto;
+    padding: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer__nav {
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer__contact {
+    order: 3;
+    align-items: center;
+  }
 }
 </style>

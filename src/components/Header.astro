@@ -57,7 +57,7 @@ const navLinks = [
       </a>
 
       <!-- Mobile burger -->
-      <button class="header__burger" aria-label="תפריט" id="burgerBtn">
+      <button class="header__burger" aria-label="תפריט" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -269,8 +269,14 @@ const navLinks = [
 </style>
 
 <script>
-  const burger = document.getElementById('burgerBtn');
+  const burger = document.getElementById('burgerBtn') as HTMLButtonElement;
   const menu = document.getElementById('mobileMenu');
-  burger?.addEventListener('click', () => menu?.classList.toggle('open'));
-  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+  burger?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(!!isOpen));
+  });
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger?.setAttribute('aria-expanded', 'false');
+  }));
 </script>

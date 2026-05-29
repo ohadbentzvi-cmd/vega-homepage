@@ -42,7 +42,7 @@ const services = [
 ];
 ---
 
-<section class="svc" id="services">
+<section class="svc" id="services-1">
 
   <!-- ── Section title band ─────────────────────────── -->
   <div class="svc__header">
@@ -125,19 +125,19 @@ const services = [
 
   /* ── Body / background ───────────────────────────── */
   .svc__body {
-    background: #f5f3ef;
+    background: var(--color-warm-surface);
   }
 
   /* ── Each service block ──────────────────────────── */
   .svc__item {
-    background: #f5f3ef;
+    background: var(--color-warm-surface);
     border-top: 1px solid var(--color-teal-light);
   }
   .svc__item:first-child { border-top: none; }
 
   /* Alternate: cooler tint + flip layout */
   .svc__item--alt {
-    background: #edf0ee;
+    background: var(--color-warm-surface-alt);
   }
   .svc__item--alt .svc__num {
     color: var(--color-teal-mid);

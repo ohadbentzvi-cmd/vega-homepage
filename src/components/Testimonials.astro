@@ -92,14 +92,9 @@ if (projectId) {
             <div class="testi__slide">
               <article class="tcard">
 
-                <!-- Decorative icon -->
+                <!-- Decorative logo -->
                 <div class="tcard__icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                    <line x1="12" y1="2" x2="12" y2="22"/>
-                    <line x1="2" y1="12" x2="22" y2="12"/>
-                    <line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/>
-                    <line x1="19.1" y1="4.9" x2="4.9" y2="19.1"/>
-                  </svg>
+                  <img src="/logos/VEGA-LOGO-REGULAR-copy2.png" alt="" class="tcard__logo" />
                 </div>
 
                 <!-- Quote -->
@@ -215,12 +210,14 @@ if (projectId) {
   height: 100%;
 }
 
-/* Decorative icon */
+/* Decorative logo */
 .tcard__icon {
   display: flex;
   justify-content: center;
-  color: var(--color-dark);
-  opacity: 0.75;
+}
+.tcard__logo {
+  height: 36px;
+  width: auto;
 }
 
 /* Quote */
