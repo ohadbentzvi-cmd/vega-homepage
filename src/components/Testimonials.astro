@@ -373,8 +373,10 @@ if (projectId) {
       const vc = visibleCount();
       const gap = 20;
       const slideWidth = slides[0].offsetWidth + gap;
-      // RTL flex: positive translateX reveals slides to the left (advancing forward)
-      track.style.transform = `translateX(${current * vc * slideWidth}px)`;
+      const rawOffset = current * vc * slideWidth;
+      const maxOffset = (slides.length - vc) * slideWidth;
+      const offset = Math.min(rawOffset, maxOffset);
+      track.style.transform = `translateX(${offset}px)`;
 
       dotsEl.querySelectorAll<HTMLElement>('.testi__dot').forEach((d, i) => {
         d.classList.toggle('active', i === current);

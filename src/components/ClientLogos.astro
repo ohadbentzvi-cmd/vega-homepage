@@ -128,6 +128,11 @@ if (projectId) {
   height: 100%;
   object-fit: contain;
   display: block;
+  filter: grayscale(1);
+  transition: filter 0.2s;
+}
+.logos-card:hover .logos-card__img {
+  filter: grayscale(0);
 }
 
 /* Arrows */
@@ -213,6 +218,17 @@ if (projectId) {
       return Math.ceil(slides.length / visibleCount());
     }
 
+    function allFit() {
+      return slides.length <= visibleCount();
+    }
+
+    function updateArrowVisibility() {
+      const hidden = allFit();
+      prevBtn.style.visibility = hidden ? 'hidden' : '';
+      nextBtn.style.visibility = hidden ? 'hidden' : '';
+      dotsEl.style.display = hidden ? 'none' : '';
+    }
+
     function buildDots() {
       dotsEl.innerHTML = '';
       for (let i = 0; i < pageCount(); i++) {
@@ -230,7 +246,10 @@ if (projectId) {
 
       const vc = visibleCount();
       const slideWidth = slides[0].offsetWidth + 16; // gap
-      track.style.transform = `translateX(${current * vc * slideWidth}px)`;
+      const rawOffset = current * vc * slideWidth;
+      const maxOffset = (slides.length - vc) * slideWidth;
+      const offset = Math.min(rawOffset, maxOffset);
+      track.style.transform = `translateX(${offset}px)`;
 
       dotsEl.querySelectorAll<HTMLElement>('.logos-carousel__dot').forEach((d, i) => {
         d.classList.toggle('active', i === current);
@@ -242,6 +261,7 @@ if (projectId) {
 
     buildDots();
     goTo(0);
+    updateArrowVisibility();
 
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
@@ -254,6 +274,7 @@ if (projectId) {
         current = 0;
         buildDots();
         goTo(0);
+        updateArrowVisibility();
       }, 150);
     });
   }

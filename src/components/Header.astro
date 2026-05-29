@@ -78,6 +78,13 @@ const navLinks = [
 </header>
 
 <style>
+/* ── Sticky wrapper ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
 /* ── Top info bar ── */
 .header__topbar {
   background: var(--color-dark);
@@ -85,12 +92,12 @@ const navLinks = [
 }
 .header__topbar-inner {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 .header__topbar-info {
-  display: flex;
+  display: inline-flex;   /* shrinks to widest row's width */
   flex-direction: column;
-  align-items: flex-end;
+  align-items: stretch;   /* both rows expand to that same width */
   gap: 3px;
 }
 .header__topbar-item {

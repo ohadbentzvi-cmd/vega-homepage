@@ -13,15 +13,15 @@ const cards = [
   <div class="container">
     <!-- Centered logo block -->
     <div class="about__brand">
-      <img src="/logos/VEGA-LOGO-REGULAR.png" alt="VEGA Holdings" class="about__brand-logo" />
+      <img src="/logos/VEGA-LOGO-SIMPLE.png" alt="VEGA Holdings" class="about__brand-logo" />
       <p class="about__brand-tagline">אנחנו שירות שחושב קדימה.</p>
       <p class="about__brand-body">
-        <strong>VEGA HOLDINGS</strong> היא חברת השירותים הארצית המתמחה בכוח אדם, ניקיון ואחזקה ומניהול מבנים.
-        מאז שנת 2000, אנחנו מלווים לקוחות מהמגזר המוסדי, הציבורי והפרטי, ומנהלים פרויקטים מורכבים מידי יום.
-        <strong>העבודה שלנו מבוססת על שלושה עקרונות:</strong> זמינות מלאה, שקיפות מלאה ושמירה על זכויות העובדים ורווחתם.
+        <strong>VEGA HOLDINGS</strong> היא חברת שירותים ארצית המתמחה בכוח אדם, ניקיון ואחזקה וניהול מבנים.<br />
+        מאז שנת 2000, אנחנו מלווים לקוחות מהמגזר המוסדי, הציבורי והפרטי, ומנהלים עבורם פרויקטים מורכבים בפריסה ארצית.<br />
+        <strong>העבודה שלנו מבוססת על שלושה עקרונות:</strong> זמינות גבוהה, שקיפות מלאה ושמירה על זכויות העובדים ורווחתם.<br />
         <strong>המטרה שלנו פשוטה:</strong> לתת לכם שקט תפעולי לאורך זמן.
       </p>
-      <a href="#services-1" class="about__readmore">Read more</a>
+      <a href="#contact" class="about__readmore">צור קשר</a>
     </div>
 
     <!-- Why section -->
@@ -32,7 +32,7 @@ const cards = [
     <!-- Feature cards grid -->
     <div class="about__cards">
       {cards.map(card => (
-        <div class="about__card">
+        <div class="about__card-wrap">
           <img src={card.img} alt={card.alt} class="about__card-img" loading="lazy" />
         </div>
       ))}
@@ -42,8 +42,8 @@ const cards = [
 
 <style>
 .about {
-  padding: 72px 0 80px;
-  background: #fff;
+  padding: 80px 0 88px;
+  background: #f2f2f0;
 }
 
 /* Brand block */
@@ -52,42 +52,45 @@ const cards = [
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 680px;
-  margin: 0 auto 60px;
+  max-width: 760px;
+  margin: 0 auto 68px;
 }
 .about__brand-logo {
-  height: 90px;
+  height: 140px;
   width: auto;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 .about__brand-tagline {
   font-family: var(--font-condensed);
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
-  color: var(--color-teal-dark);
-  margin-bottom: 18px;
+  color: var(--color-dark);
+  margin-bottom: 22px;
 }
 .about__brand-body {
-  font-size: 15px;
-  line-height: 1.8;
-  color: #555;
-  margin-bottom: 28px;
+  font-size: 17px;
+  line-height: 2;
+  color: #444;
+  margin-bottom: 32px;
   text-align: center;
+}
+.about__brand-body strong {
+  color: var(--color-teal-dark);
 }
 .about__readmore {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-teal-dark);
+  background: var(--color-teal-mid);
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 11px 36px;
-  border-radius: 4px;
+  padding: 13px 52px;
+  border-radius: 40px;
   transition: background 0.2s;
 }
-.about__readmore:hover { background: var(--color-dark); }
+.about__readmore:hover { background: var(--color-teal-dark); }
 
 /* Why heading */
 .about__why-title {
@@ -103,29 +106,33 @@ const cards = [
   color: var(--color-teal-mid);
 }
 
-/* Feature cards */
+/* Feature cards — PNGs are pre-designed cards with ~25% transparent padding
+   top and bottom. Wrapper clips that padding so cards sit flush in the grid. */
 .about__cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 0;
   max-width: 960px;
   margin: 0 auto;
 }
-.about__card {
+/* overflow:hidden clips the transparent PNG padding above/below the white card */
+.about__card-wrap {
   overflow: hidden;
-  transition: transform 0.25s ease;
-}
-.about__card:hover {
-  transform: translateY(-4px);
 }
 .about__card-img {
   width: 100%;
   height: auto;
   display: block;
-  /* PNGs have ~25% transparent padding top/bottom (336px & 344px out of 1350px).
-     Convert to % of width: 25% × (1350/1080) ≈ 31% */
-  margin-top: -31%;
-  margin-bottom: -31%;
+  /* PNG is 1080×1350 (aspect 1.25). Shadow occupies top=24.9%→31.9% and
+     bottom=32.5%→25.6% of image height. We crop deep into the shadow to
+     keep cards compact. margin% is relative to parent width, so × 1.25:
+     target crop ≈ 35% of parent width clips most shadow, leaves a sliver. */
+  margin-top: -35%;
+  margin-bottom: -35%;
+  transition: transform 0.2s;
+}
+.about__card-img:hover {
+  transform: scale(1.04);
 }
 
 @media (max-width: 768px) {

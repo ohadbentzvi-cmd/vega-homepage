@@ -23,8 +23,8 @@ const services = [
       { label: 'עבודות מיוחדות:', text: 'עבודות מורכבות כמו פוליש, אוסמוזה, ניקוי חניונים או ניקיון יסודי אחרי שיפוץ.' },
       { label: 'עבודה בגובה:', text: 'צוותי סנפלינג מוסמכים לניקוי חלונות ומעטפת המבנה.' },
     ],
-    img1: { src: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', alt: 'שירותי ניקיון' },
-    img2: { src: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80', alt: 'ניקיון מקצועי' },
+    img1: null,
+    img2: { src: '/images/cleaning-worker.jpg', alt: 'עובד ניקיון בחניון' },
   },
   {
     num: '03',
@@ -85,10 +85,12 @@ const services = [
           </div>
 
           <!-- Images — second in DOM = left side in RTL -->
-          <div class="svc__media">
-            <div class="svc__img-a">
-              <img src={s.img1.src} alt={s.img1.alt} loading="lazy" />
-            </div>
+          <div class={`svc__media${!s.img1 ? ' svc__media--single' : ''}`}>
+            {s.img1 && (
+              <div class="svc__img-a">
+                <img src={s.img1.src} alt={s.img1.alt} loading="lazy" />
+              </div>
+            )}
             <div class="svc__img-b">
               <img src={s.img2.src} alt={s.img2.alt} loading="lazy" />
             </div>
@@ -137,6 +139,9 @@ const services = [
   .svc__item--alt {
     background: #edf0ee;
   }
+  .svc__item--alt .svc__num {
+    color: var(--color-teal-mid);
+  }
   .svc__item--alt .svc__inner {
     /* In RTL, row-reverse = content moves to left, media to right */
     flex-direction: row-reverse;
@@ -173,15 +178,15 @@ const services = [
   }
   .svc__title {
     font-family: 'Assistant', sans-serif;
-    font-size: clamp(24px, 2.8vw, 34px);
-    font-weight: 800;
+    font-size: clamp(28px, 3.2vw, 40px);
+    font-weight: 900;
     color: var(--color-dark);
     line-height: 1.1;
   }
   .svc__subtitle {
     font-family: 'Assistant', sans-serif;
-    font-size: clamp(15px, 1.8vw, 19px);
-    font-weight: 500;
+    font-size: clamp(17px, 2vw, 22px);
+    font-weight: 600;
     color: var(--color-teal-dark);
     line-height: 1.3;
   }
@@ -201,18 +206,19 @@ const services = [
   /* Intro text */
   .svc__intro {
     font-family: 'Assistant', sans-serif;
-    font-size: 15.5px;
-    line-height: 1.75;
-    color: var(--color-dark);
+    font-size: 17px;
+    line-height: 1.8;
+    color: #555;
     white-space: pre-line;
     margin-bottom: 20px;
   }
 
   /* Teal rule */
   .svc__rule {
-    height: 2px;
+    height: 5px;
     background: var(--color-teal-dark);
-    margin-bottom: 20px;
+    border-radius: 2px;
+    margin-bottom: 22px;
   }
 
   /* Bullet list */
@@ -221,17 +227,18 @@ const services = [
     padding-inline-start: 22px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 32px;
   }
   .svc__bullet {
     font-family: 'Assistant', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--color-dark);
+    font-size: 16px;
+    line-height: 1.75;
+    color: #444;
   }
   .svc__bullet strong {
-    font-weight: 700;
+    font-weight: 800;
+    color: var(--color-dark);
   }
 
   /* CTA buttons */
@@ -287,6 +294,8 @@ const services = [
   }
   .svc__img-a { flex: 0 0 36%; }
   .svc__img-b { flex: 1 1 0; }
+  .svc__media--single .svc__img-b { flex: 1 1 100%; }
+  .svc__media--single .svc__img-b img { object-position: top center; }
   .svc__img-a img,
   .svc__img-b img {
     width: 100%;
@@ -317,6 +326,9 @@ const services = [
       width: 100%;
       height: 240px;
       order: -1;
+    }
+    .svc__media--single {
+      height: 320px;
     }
     .svc__content { width: 100%; }
     .svc__num { font-size: 60px; }
