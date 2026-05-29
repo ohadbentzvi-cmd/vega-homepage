@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;400;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Open+Sans+Condensed:wght@300;400;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
   --color-white: #FFFFFF;
@@ -8,8 +8,8 @@
   --color-dark: #404141;
   --color-teal-dark: #627778;
 
-  --font-condensed: 'Open Sans Condensed', 'Arial Narrow', sans-serif;
-  --font-base: 'Open Sans', Arial, sans-serif;
+  --font-condensed: 'Assistant', 'Open Sans Condensed', 'Arial Narrow', sans-serif;
+  --font-base: 'Assistant', 'Open Sans', Arial, sans-serif;
 
   --max-w: 1200px;
   --section-pad: 80px 0;

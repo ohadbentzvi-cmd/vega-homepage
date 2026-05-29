@@ -2,12 +2,12 @@
 import { sanityClient, urlFor, PARTNERS_QUERY } from '../lib/sanity';
 
 const STATIC_LOGOS = [
-  { src: '/icons/logo-alrov.png',    alt: 'אלרוב',          href: null },
   { src: '/icons/logo-atlas.png',    alt: 'מלונות אטלס',    href: null },
+  { src: '/icons/logo-alrov.png',    alt: 'אלרוב',          href: null },
   { src: '/icons/logo-mishkal.png',  alt: 'משכל',           href: null },
-  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות', href: null },
   { src: '/icons/logo-cbre.png',     alt: 'CBRE',           href: null },
   { src: '/icons/logo-carlton.png',  alt: 'קרלטון תל אביב', href: null },
+  { src: '/icons/logo-orchidea.png', alt: 'אורכידאה מלונות', href: null },
 ];
 
 const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
@@ -18,100 +18,243 @@ if (projectId) {
     const raw = await sanityClient.fetch(PARTNERS_QUERY);
     if (raw?.length) {
       logos = raw.map((p: any) => ({
-        src: urlFor(p.logo).height(88).auto('format').url(),
+        src: p.logo ? urlFor(p.logo).height(120).auto('format').url() : null,
         alt: p.name,
         href: p.website ?? null,
-      }));
+      })).filter((l: any) => l.src);
     }
   } catch (e) {
     console.warn('[ClientLogos] Sanity fetch failed, using static data');
   }
 }
-
-const track = [...logos, ...logos, ...logos];
 ---
 
-<section class="logos">
-  <div class="logos__wrap">
-    <div class="logos__track" aria-hidden="true">
-      {track.map(logo => (
-        <div class="logos__item">
-          {logo.href
-            ? <a href={logo.href} target="_blank" rel="noopener noreferrer">
-                <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
-              </a>
-            : <img src={logo.src} alt={logo.alt} class="logos__img" loading="lazy" />
-          }
+<section class="logos-section">
+  <div class="container">
+    <h2 class="logos-section__title">חברות וארגונים שסומכים עלינו</h2>
+
+    <div class="logos-carousel" id="logosCarousel">
+      <button class="logos-carousel__arrow logos-carousel__arrow--prev" id="logosPrev" aria-label="הקודם">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <div class="logos-carousel__viewport">
+        <div class="logos-carousel__track" id="logosTrack">
+          {logos.map(logo => (
+            <div class="logos-carousel__slide">
+              <div class="logos-card">
+                {logo.href
+                  ? <a href={logo.href} target="_blank" rel="noopener noreferrer" class="logos-card__inner">
+                      <img src={logo.src} alt={logo.alt} class="logos-card__img" loading="lazy" />
+                    </a>
+                  : <div class="logos-card__inner">
+                      <img src={logo.src} alt={logo.alt} class="logos-card__img" loading="lazy" />
+                    </div>
+                }
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      <button class="logos-carousel__arrow logos-carousel__arrow--next" id="logosNext" aria-label="הבא">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
     </div>
+
+    <div class="logos-carousel__dots" id="logosDots"></div>
   </div>
 </section>
 
 <style>
-.logos {
-  background: var(--color-white);
-  padding: 32px 0;
+.logos-section {
+  background: var(--color-light);
+  padding: 64px 0 56px;
   border-top: 1px solid var(--color-teal-light);
   border-bottom: 1px solid var(--color-teal-light);
-  overflow: hidden;
 }
-.logos__wrap {
-  position: relative;
-  overflow: hidden;
+.logos-section__title {
+  font-family: var(--font-condensed);
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: 40px;
 }
-.logos__wrap::before,
-.logos__wrap::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 1;
-  pointer-events: none;
-}
-.logos__wrap::before {
-  right: 0;
-  background: linear-gradient(to left, #fff, transparent);
-}
-.logos__wrap::after {
-  left: 0;
-  background: linear-gradient(to right, #fff, transparent);
-}
-.logos__track {
+
+/* Carousel layout */
+.logos-carousel {
   display: flex;
   align-items: center;
-  gap: 0;
-  width: max-content;
-  animation: scrollLogos 28s linear infinite;
+  gap: 16px;
 }
-.logos__track:hover { animation-play-state: paused; }
-.logos__item {
-  padding: 0 32px;
-  border-left: 1px solid var(--color-teal-light);
+.logos-carousel__viewport {
+  flex: 1;
+  overflow: hidden;
+}
+.logos-carousel__track {
+  display: flex;
+  gap: 16px;
+  transition: transform 0.4s cubic-bezier(0.25, 0, 0.1, 1);
+  will-change: transform;
+}
+.logos-carousel__slide {
+  flex: 0 0 calc((100% - 5 * 16px) / 6);
+  min-width: 0;
+}
+
+/* Logo card */
+.logos-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(64,65,65,0.07);
+  aspect-ratio: 1 / 1;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.logos-card:hover {
+  box-shadow: 0 6px 24px rgba(98,119,120,0.14);
+  transform: translateY(-2px);
+}
+.logos-card__inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 72px;
+  width: 100%;
+  height: 100%;
+  padding: 10%;
 }
-.logos__item:last-child { border-left: none; }
-.logos__img {
-  height: 44px;
-  width: auto;
+.logos-card__img {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: 0.65;
-  transition: filter 0.25s, opacity 0.25s;
-}
-.logos__item:hover .logos__img {
-  filter: grayscale(0%);
-  opacity: 1;
+  display: block;
 }
 
-@keyframes scrollLogos {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
+/* Arrows */
+.logos-carousel__arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--color-teal-light);
+  color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  flex-shrink: 0;
 }
-@media (prefers-reduced-motion: reduce) {
-  .logos__track { animation: none; }
+.logos-carousel__arrow:hover {
+  background: var(--color-teal-dark);
+  border-color: var(--color-teal-dark);
+  color: #fff;
+}
+.logos-carousel__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Dots */
+.logos-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+.logos-carousel__dot {
+  width: 28px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-teal-light);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, width 0.2s;
+  padding: 0;
+}
+.logos-carousel__dot.active {
+  background: var(--color-teal-dark);
+  width: 40px;
+}
+
+/* Responsive: show fewer columns */
+@media (max-width: 900px) {
+  .logos-carousel__slide {
+    flex: 0 0 calc((100% - 3 * 16px) / 4);
+  }
+}
+@media (max-width: 600px) {
+  .logos-carousel__slide {
+    flex: 0 0 calc((100% - 16px) / 2);
+  }
 }
 </style>
+
+<script>
+  const track   = document.getElementById('logosTrack') as HTMLElement;
+  const dotsEl  = document.getElementById('logosDots') as HTMLElement;
+  const prevBtn = document.getElementById('logosPrev') as HTMLButtonElement;
+  const nextBtn = document.getElementById('logosNext') as HTMLButtonElement;
+  const slides  = track?.querySelectorAll<HTMLElement>('.logos-carousel__slide');
+
+  if (track && slides && slides.length) {
+    let current = 0;
+
+    function visibleCount() {
+      const w = track.parentElement!.offsetWidth;
+      if (w < 600) return 2;
+      if (w < 900) return 4;
+      return 6;
+    }
+
+    function pageCount() {
+      return Math.ceil(slides.length / visibleCount());
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < pageCount(); i++) {
+        const d = document.createElement('button');
+        d.className = 'logos-carousel__dot' + (i === current ? ' active' : '');
+        d.setAttribute('aria-label', `עמוד ${i + 1}`);
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function goTo(page: number) {
+      const pages = pageCount();
+      current = Math.max(0, Math.min(page, pages - 1));
+
+      const vc = visibleCount();
+      const slideWidth = slides[0].offsetWidth + 16; // gap
+      track.style.transform = `translateX(${current * vc * slideWidth}px)`;
+
+      dotsEl.querySelectorAll<HTMLElement>('.logos-carousel__dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current >= pages - 1;
+    }
+
+    buildDots();
+    goTo(0);
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    // Rebuild on resize
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        current = 0;
+        buildDots();
+        goTo(0);
+      }, 150);
+    });
+  }
+</script>

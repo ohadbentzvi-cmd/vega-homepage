@@ -2,190 +2,378 @@
 const services = [
   {
     num: '01',
-    id: 'services-1',
-    title: 'מה אנו: גייסנו אלפים',
-    subtitle: 'גיוס עובדים ו-HR',
-    body: `VEGA הינה חברת גיוס עובדים ותיקה ומובילה, המתמחה בגיוס עובדים לכל רמות הארגון.
-לאורך השנים גייסנו אלפי עובדים למגוון רחב של חברות – מסטארטאפים ועד תאגידים גדולים.
-הצוות שלנו מבין את השוק ומכיר את הכישרונות הנכונים לכל תפקיד.`,
+    title: 'כוח אדם:',
+    subtitle: 'גיוס מדויק לצורכי הלקוח',
+    intro: 'אנחנו לא רק מאיישים משרה, אנחנו יוצרים יציבות.\nאנחנו מתמחים במציאת האנשים הנכונים למגוון רחב של תחומים.',
     bullets: [
-      'גיוס מנהלים ועובדים לכל הרמות',
-      'מאגר מועמדים רחב ועדכני',
-      'תהליך מהיר וממוקד',
-      'ליווי לאחר השמה',
+      { label: 'תחומי התמחות:', text: 'מלונאות, מסחר וקמעונאות, לוגיסטיקה והפצה, תעשייה, מגזר ציבורי, בידור, חינוך ושירות.' },
+      { label: 'התאמה מלאה:', text: 'תהליך הגיוס שלנו כולל אפיון צרכים מדויק וליווי מקצועי עד לקליטה מלאה בארגון.' },
+      { label: 'גמישות תפעולית:', text: 'מתן מענה מהיר לצרכים משתנים, כי עם נוכחות בכל רחבי הארץ וניסיון של עשרות שנים בשטח, אנחנו שם כשצריך. בלי עיכובים ובלי תירוצים.' },
     ],
-    imgSrc: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=700&q=80',
-    imgAlt: 'גיוס עובדים',
-    reverse: false,
+    img1: { src: 'https://images.unsplash.com/photo-1560347876-aeef00ee58a1?w=400&q=80', alt: 'לובי מלון' },
+    img2: { src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80', alt: 'צוות מקצועי' },
   },
   {
     num: '02',
-    id: 'services-2',
-    title: 'שירותי גיוס:',
-    subtitle: 'השמה מקצועית',
-    body: `אנחנו מציעים מגוון שירותי גיוס והשמה המותאמים לצרכי הארגון שלך.
-מחיפוש יזום ועד בדיקות רקע מקיפות – תהליך הגיוס שלנו מקיף ויסודי.`,
+    title: 'שירותי ניקיון:',
+    subtitle: 'סטנדרט גבוה, יום אחרי יום',
+    intro: 'ניקיון הוא לא רק "להעביר סמרטוט". הוא הרושם הראשוני שלכם.',
     bullets: [
-      'חיפוש יזום (Headhunting)',
-      'הסינון ראשוני וראיונות',
-      'בדיקות רקע ואימות ניסיון',
-      'השמה זמנית וקבועה',
-      'גיוס המוני לפרויקטים',
+      { label: 'עבודות שוטפות:', text: 'החל מניקיון משרדים יומיומי ובתי מלון ועד ניקיון בבתי ספר ומוסדות ציבור.' },
+      { label: 'עבודות מיוחדות:', text: 'עבודות מורכבות כמו פוליש, אוסמוזה, ניקוי חניונים או ניקיון יסודי אחרי שיפוץ.' },
+      { label: 'עבודה בגובה:', text: 'צוותי סנפלינג מוסמכים לניקוי חלונות ומעטפת המבנה.' },
     ],
-    imgSrc: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80',
-    imgAlt: 'שירותי גיוס',
-    reverse: true,
+    img1: { src: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=400&q=80', alt: 'שירותי ניקיון' },
+    img2: { src: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=600&q=80', alt: 'ניקיון מקצועי' },
   },
   {
     num: '03',
-    id: 'services-3',
-    title: 'ניהול ותחזוקת מבנים',
-    subtitle: 'ניהול נכסים',
-    body: `מחלקת ניהול המבנים של VEGA מספקת שירותי ניהול ותחזוקה מקיפים לנכסים מסחריים
-ומגורים ברחבי הארץ. אנחנו מבטיחים תפעול תקין, ניקיון, בטיחות וחיסכון בעלויות.`,
+    title: 'ניהול ואחזקת מבנים:',
+    subtitle: 'אחריות מלאה ושקט תפעולי',
+    intro: 'אנחנו מספקים מעטפת תחזוקה כוללת למשרדים,\nמוסדות ונכסים מניבים. במקום שתתרוצצו בין ספקים,\nאנחנו מרכזים את הכל תחת ניהול אחד.',
     bullets: [
-      'ניהול שוטף של הנכס',
-      'תחזוקה מונעת ותיקונים',
-      'ניהול קבלני משנה',
-      'דיווח ושקיפות מלאה לבעל הנכס',
-      'חיסכון בעלויות תפעוליות',
+      { label: 'תחזוקה שוטפת:', text: 'טיפול במערכות המבנה, ניהול בעלי מקצוע ופיקוח צמוד.' },
+      { label: 'ניהול פרויקטים:', text: 'תיאום ובקרה על פרויקטים מורכבים תוך עמידה בלוחות זמנים ובתקציב.' },
+      { label: 'צוות קבוע:', text: 'לכל פרויקט מוצמד מנהל אחזקה שמכיר את הנכס לעומק ודואג לתפקוד תקין ושמירה על ערך המבנה.' },
     ],
-    imgSrc: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80',
-    imgAlt: 'ניהול מבנים',
-    reverse: false,
+    img1: { src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80', alt: 'ניהול מבנים' },
+    img2: { src: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80', alt: 'תחזוקת מתקנים' },
   },
 ];
 ---
 
-<div class="services">
-  {services.map((s) => (
-    <section class={`service ${s.reverse ? 'service--reverse' : ''}`} id={s.id}>
-      <div class="container service__inner">
-        <div class="service__content">
-          <span class="service__num">{s.num}</span>
-          <p class="service__eyebrow">{s.subtitle}</p>
-          <h2 class="service__title section-title">{s.title}</h2>
-          <p class="service__body">{s.body}</p>
-          <ul class="service__bullets">
-            {s.bullets.map(b => (
-              <li class="service__bullet">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                {b}
-              </li>
-            ))}
-          </ul>
-          <a href="#contact" class="btn-primary">פרטים נוספים</a>
-        </div>
-        <div class="service__media">
-          <img src={s.imgSrc} alt={s.imgAlt} class="service__img" loading="lazy" />
-        </div>
+<section class="svc" id="services">
+
+  <!-- ── Section title band ─────────────────────────── -->
+  <div class="svc__header">
+    <h2 class="svc__header-title">תחומי פעילות שלנו</h2>
+  </div>
+
+  <!-- ── Carousel (dir=ltr for predictable translate) ── -->
+  <div class="svc__body">
+    <div class="svc__carousel" id="svcCarousel" dir="ltr">
+      <div class="svc__track" id="svcTrack">
+
+        {services.map((s) => (
+          <div class="svc__slide" dir="rtl">
+            <div class="container svc__inner">
+
+              <!-- Text content — first in DOM = right side in RTL -->
+              <div class="svc__content">
+
+                <div class="svc__head">
+                  <div class="svc__title-group">
+                    <h3 class="svc__title">{s.title}</h3>
+                    <p class="svc__subtitle">{s.subtitle}</p>
+                  </div>
+                  <span class="svc__num" aria-hidden="true">{s.num}</span>
+                </div>
+
+                <p class="svc__intro">{s.intro}</p>
+                <div class="svc__rule"></div>
+
+                <ul class="svc__bullets">
+                  {s.bullets.map(b => (
+                    <li class="svc__bullet">
+                      <strong>{b.label}</strong>{' '}{b.text}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="svc__actions">
+                  <a href="#jobs" class="svc__btn svc__btn--primary">דרושים</a>
+                  <a href="#contact" class="svc__btn svc__btn--outline">יצירת קשר</a>
+                </div>
+
+              </div>
+
+              <!-- Images — second in DOM = left side in RTL -->
+              <div class="svc__media">
+                <div class="svc__img-a">
+                  <img src={s.img1.src} alt={s.img1.alt} loading="lazy" />
+                </div>
+                <div class="svc__img-b">
+                  <img src={s.img2.src} alt={s.img2.alt} loading="lazy" />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        ))}
+
       </div>
-    </section>
-  ))}
-</div>
+    </div>
+
+    <!-- ── Pagination ──────────────────────────────── -->
+    <div class="svc__pagination" id="svcPagination"></div>
+  </div>
+
+</section>
 
 <style>
-.services { background: var(--color-white); }
-
-.service {
-  padding: 80px 0;
-  border-top: 1px solid var(--color-teal-light);
-}
-.service:first-child { border-top: none; }
-
-.service__inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-}
-.service--reverse .service__inner {
-  direction: ltr;
-}
-.service--reverse .service__content {
-  direction: rtl;
-}
-
-.service__content { position: relative; }
-.service__num {
-  font-family: var(--font-condensed);
-  font-size: 100px;
-  font-weight: 700;
-  color: var(--color-teal-light);
-  line-height: 1;
-  position: absolute;
-  top: -30px;
-  right: -10px;
-  z-index: 0;
-  user-select: none;
-}
-.service__eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-teal-dark);
-  margin-bottom: 8px;
-  position: relative;
-  z-index: 1;
-}
-.service__title {
-  font-size: clamp(24px, 3.5vw, 36px);
-  color: var(--color-dark);
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-}
-.service__body {
-  color: #666;
-  font-size: 15px;
-  line-height: 1.8;
-  margin-bottom: 24px;
-  white-space: pre-line;
-  position: relative;
-  z-index: 1;
-}
-.service__bullets {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 32px;
-  position: relative;
-  z-index: 1;
-}
-.service__bullet {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--color-dark);
-}
-.service__bullet svg { color: var(--color-teal-dark); flex-shrink: 0; }
-
-.service__media {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 16px 48px rgba(64,65,65,0.12);
-  aspect-ratio: 4/3;
-}
-.service__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.service__media:hover .service__img { transform: scale(1.03); }
-
-@media (max-width: 900px) {
-  .service__inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    direction: rtl !important;
+  /* ── Section wrapper ─────────────────────────────── */
+  .svc {
+    font-family: 'Assistant', 'Open Sans', sans-serif;
   }
-  .service--reverse .service__inner { direction: rtl; }
-  .service__num { font-size: 72px; top: -20px; }
-  .service__media { order: -1; }
-  .service--reverse .service__media { order: -1; }
-}
+
+  /* ── Header band ─────────────────────────────────── */
+  .svc__header {
+    background: var(--color-teal-mid);
+    padding: 26px 24px;
+    text-align: center;
+  }
+  .svc__header-title {
+    font-family: 'Assistant', sans-serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 700;
+    color: var(--color-dark);
+    letter-spacing: -0.3px;
+  }
+
+  /* ── Body / background ───────────────────────────── */
+  .svc__body {
+    background: #f5f3ef;
+    padding-bottom: 48px;
+  }
+
+  /* ── Carousel (LTR) ──────────────────────────────── */
+  .svc__carousel { overflow: hidden; }
+  .svc__track {
+    display: flex;
+    flex-direction: row-reverse; /* slides extend to the left; positive translateX reveals them RTL-naturally */
+    transition: transform 0.5s cubic-bezier(0.25, 0, 0.1, 1);
+    will-change: transform;
+  }
+  .svc__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+  }
+
+  /* ── Slide inner layout ──────────────────────────── */
+  .svc__inner {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding-top: 56px;
+    padding-bottom: 52px;
+    /* RTL: svc__content (first) → right, svc__media (second) → left */
+  }
+
+  /* ── Content (right in RTL) ──────────────────────── */
+  .svc__content {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Numbered heading row */
+  .svc__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .svc__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .svc__title {
+    font-family: 'Assistant', sans-serif;
+    font-size: clamp(24px, 2.8vw, 34px);
+    font-weight: 800;
+    color: var(--color-dark);
+    line-height: 1.1;
+  }
+  .svc__subtitle {
+    font-family: 'Assistant', sans-serif;
+    font-size: clamp(15px, 1.8vw, 19px);
+    font-weight: 500;
+    color: var(--color-teal-dark);
+    line-height: 1.3;
+  }
+  .svc__num {
+    font-family: 'Assistant', sans-serif;
+    font-size: clamp(68px, 7.5vw, 96px);
+    font-weight: 800;
+    color: var(--color-teal-light);
+    line-height: 0.8;
+    flex-shrink: 0;
+    user-select: none;
+    letter-spacing: -3px;
+    /* Nudge up so baseline aligns with title top */
+    margin-top: -8px;
+  }
+
+  /* Intro text */
+  .svc__intro {
+    font-family: 'Assistant', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--color-dark);
+    white-space: pre-line;
+    margin-bottom: 20px;
+  }
+
+  /* Teal rule */
+  .svc__rule {
+    height: 2px;
+    background: var(--color-teal-dark);
+    margin-bottom: 20px;
+  }
+
+  /* Bullet list */
+  .svc__bullets {
+    list-style: disc;
+    padding-inline-start: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .svc__bullet {
+    font-family: 'Assistant', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-dark);
+  }
+  .svc__bullet strong {
+    font-weight: 700;
+  }
+
+  /* CTA buttons */
+  .svc__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .svc__btn {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: 4px;
+    font-family: 'Assistant', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    text-decoration: none;
+    border: 2px solid transparent;
+  }
+  .svc__btn--primary {
+    background: var(--color-dark);
+    color: #fff;
+    border-color: var(--color-dark);
+  }
+  .svc__btn--primary:hover {
+    background: var(--color-teal-dark);
+    border-color: var(--color-teal-dark);
+  }
+  .svc__btn--outline {
+    background: transparent;
+    color: var(--color-dark);
+    border-color: var(--color-dark);
+  }
+  .svc__btn--outline:hover {
+    background: var(--color-dark);
+    color: #fff;
+  }
+
+  /* ── Media (left in RTL) ─────────────────────────── */
+  .svc__media {
+    flex: 0 0 43%;
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    height: 370px;
+  }
+  .svc__img-a,
+  .svc__img-b {
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .svc__img-a { flex: 0 0 36%; }
+  .svc__img-b { flex: 1 1 0; }
+  .svc__img-a img,
+  .svc__img-b img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── Pagination ──────────────────────────────────── */
+  .svc__pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-top: 8px;
+  }
+  /* Dots are created by JS → no Astro scope hash → use :global() */
+  :global(.svc__dot) {
+    height: 4px;
+    width: 32px;
+    border-radius: 2px;
+    background: var(--color-teal-light);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, width 0.2s;
+  }
+  :global(.svc__dot.active) {
+    background: var(--color-teal-dark);
+    width: 48px;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .svc__inner {
+      flex-direction: column;
+      gap: 32px;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+    .svc__media {
+      flex: none;
+      width: 100%;
+      height: 240px;
+      order: -1;
+    }
+    .svc__content { width: 100%; }
+    .svc__num { font-size: 60px; }
+  }
 </style>
+
+<script>
+  const track      = document.getElementById('svcTrack')      as HTMLElement;
+  const pagination = document.getElementById('svcPagination') as HTMLElement;
+  const slides     = track?.querySelectorAll<HTMLElement>('.svc__slide');
+
+  if (track && slides && slides.length) {
+    let current = 0;
+    const total = slides.length;
+
+    function buildDots() {
+      pagination.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'svc__dot' + (i === current ? ' active' : '');
+        btn.setAttribute('aria-label', `שקופית ${i + 1}`);
+        btn.addEventListener('click', () => goTo(i));
+        pagination.appendChild(btn);
+      }
+    }
+
+    function goTo(idx: number) {
+      current = Math.max(0, Math.min(idx, total - 1));
+      // row-reverse track: positive translateX reveals slides to the left (RTL-native "next" enters from left)
+      track.style.transform = `translateX(${current * 100}%)`;
+      pagination.querySelectorAll<HTMLElement>('.svc__dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    buildDots();
+    goTo(0);
+  }
+</script>
