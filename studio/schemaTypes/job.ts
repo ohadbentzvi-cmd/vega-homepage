@@ -6,6 +6,13 @@ export const job = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'jobNumber',
+      title: 'מספר משרה',
+      type: 'number',
+      description: 'מספר ייחודי לזיהוי המשרה (לדוגמה: 1234567)',
+      validation: Rule => Rule.integer().positive(),
+    }),
+    defineField({
       name: 'title',
       title: 'כותרת המשרה',
       type: 'string',

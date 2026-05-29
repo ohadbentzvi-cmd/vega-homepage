@@ -49,63 +49,54 @@ const services = [
     <h2 class="svc__header-title">תחומי פעילות שלנו</h2>
   </div>
 
-  <!-- ── Carousel (dir=ltr for predictable translate) ── -->
+  <!-- ── Stacked service blocks ────────────────────── -->
   <div class="svc__body">
-    <div class="svc__carousel" id="svcCarousel" dir="ltr">
-      <div class="svc__track" id="svcTrack">
+    {services.map((s, idx) => (
+      <div class={`svc__item${idx % 2 === 1 ? ' svc__item--alt' : ''}`}>
+        <div class="container svc__inner">
 
-        {services.map((s) => (
-          <div class="svc__slide" dir="rtl">
-            <div class="container svc__inner">
+          <!-- Text content — first in DOM = right side in RTL -->
+          <div class="svc__content">
 
-              <!-- Text content — first in DOM = right side in RTL -->
-              <div class="svc__content">
-
-                <div class="svc__head">
-                  <div class="svc__title-group">
-                    <h3 class="svc__title">{s.title}</h3>
-                    <p class="svc__subtitle">{s.subtitle}</p>
-                  </div>
-                  <span class="svc__num" aria-hidden="true">{s.num}</span>
-                </div>
-
-                <p class="svc__intro">{s.intro}</p>
-                <div class="svc__rule"></div>
-
-                <ul class="svc__bullets">
-                  {s.bullets.map(b => (
-                    <li class="svc__bullet">
-                      <strong>{b.label}</strong>{' '}{b.text}
-                    </li>
-                  ))}
-                </ul>
-
-                <div class="svc__actions">
-                  <a href="#jobs" class="svc__btn svc__btn--primary">דרושים</a>
-                  <a href="#contact" class="svc__btn svc__btn--outline">יצירת קשר</a>
-                </div>
-
+            <div class="svc__head">
+              <span class="svc__num" aria-hidden="true">{s.num}</span>
+              <div class="svc__title-group">
+                <h3 class="svc__title">{s.title}</h3>
+                <p class="svc__subtitle">{s.subtitle}</p>
               </div>
+            </div>
 
-              <!-- Images — second in DOM = left side in RTL -->
-              <div class="svc__media">
-                <div class="svc__img-a">
-                  <img src={s.img1.src} alt={s.img1.alt} loading="lazy" />
-                </div>
-                <div class="svc__img-b">
-                  <img src={s.img2.src} alt={s.img2.alt} loading="lazy" />
-                </div>
-              </div>
+            <p class="svc__intro">{s.intro}</p>
+            <div class="svc__rule"></div>
 
+            <ul class="svc__bullets">
+              {s.bullets.map(b => (
+                <li class="svc__bullet">
+                  <strong>{b.label}</strong>{' '}{b.text}
+                </li>
+              ))}
+            </ul>
+
+            <div class="svc__actions">
+              <a href="#jobs" class="svc__btn svc__btn--primary">דרושים</a>
+              <a href="#contact" class="svc__btn svc__btn--outline">יצירת קשר</a>
+            </div>
+
+          </div>
+
+          <!-- Images — second in DOM = left side in RTL -->
+          <div class="svc__media">
+            <div class="svc__img-a">
+              <img src={s.img1.src} alt={s.img1.alt} loading="lazy" />
+            </div>
+            <div class="svc__img-b">
+              <img src={s.img2.src} alt={s.img2.alt} loading="lazy" />
             </div>
           </div>
-        ))}
 
+        </div>
       </div>
-    </div>
-
-    <!-- ── Pagination ──────────────────────────────── -->
-    <div class="svc__pagination" id="svcPagination"></div>
+    ))}
   </div>
 
 </section>
@@ -133,29 +124,31 @@ const services = [
   /* ── Body / background ───────────────────────────── */
   .svc__body {
     background: #f5f3ef;
-    padding-bottom: 48px;
   }
 
-  /* ── Carousel (LTR) ──────────────────────────────── */
-  .svc__carousel { overflow: hidden; }
-  .svc__track {
-    display: flex;
-    flex-direction: row-reverse; /* slides extend to the left; positive translateX reveals them RTL-naturally */
-    transition: transform 0.5s cubic-bezier(0.25, 0, 0.1, 1);
-    will-change: transform;
+  /* ── Each service block ──────────────────────────── */
+  .svc__item {
+    background: #f5f3ef;
+    border-top: 1px solid var(--color-teal-light);
   }
-  .svc__slide {
-    flex: 0 0 100%;
-    min-width: 0;
+  .svc__item:first-child { border-top: none; }
+
+  /* Alternate: cooler tint + flip layout */
+  .svc__item--alt {
+    background: #edf0ee;
+  }
+  .svc__item--alt .svc__inner {
+    /* In RTL, row-reverse = content moves to left, media to right */
+    flex-direction: row-reverse;
   }
 
-  /* ── Slide inner layout ──────────────────────────── */
+  /* ── Inner layout ────────────────────────────────── */
   .svc__inner {
     display: flex;
     align-items: center;
     gap: 56px;
-    padding-top: 56px;
-    padding-bottom: 52px;
+    padding-top: 64px;
+    padding-bottom: 64px;
     /* RTL: svc__content (first) → right, svc__media (second) → left */
   }
 
@@ -165,12 +158,12 @@ const services = [
     min-width: 0;
   }
 
-  /* Numbered heading row */
+  /* Numbered heading row — num + title grouped at RTL start (right) */
   .svc__head {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 16px;
     margin-bottom: 18px;
   }
   .svc__title-group {
@@ -309,25 +302,11 @@ const services = [
     gap: 8px;
     padding-top: 8px;
   }
-  /* Dots are created by JS → no Astro scope hash → use :global() */
-  :global(.svc__dot) {
-    height: 4px;
-    width: 32px;
-    border-radius: 2px;
-    background: var(--color-teal-light);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.2s, width 0.2s;
-  }
-  :global(.svc__dot.active) {
-    background: var(--color-teal-dark);
-    width: 48px;
-  }
 
   /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 900px) {
-    .svc__inner {
+    .svc__inner,
+    .svc__item--alt .svc__inner {
       flex-direction: column;
       gap: 32px;
       padding-top: 40px;
@@ -343,37 +322,3 @@ const services = [
     .svc__num { font-size: 60px; }
   }
 </style>
-
-<script>
-  const track      = document.getElementById('svcTrack')      as HTMLElement;
-  const pagination = document.getElementById('svcPagination') as HTMLElement;
-  const slides     = track?.querySelectorAll<HTMLElement>('.svc__slide');
-
-  if (track && slides && slides.length) {
-    let current = 0;
-    const total = slides.length;
-
-    function buildDots() {
-      pagination.innerHTML = '';
-      for (let i = 0; i < total; i++) {
-        const btn = document.createElement('button');
-        btn.className = 'svc__dot' + (i === current ? ' active' : '');
-        btn.setAttribute('aria-label', `שקופית ${i + 1}`);
-        btn.addEventListener('click', () => goTo(i));
-        pagination.appendChild(btn);
-      }
-    }
-
-    function goTo(idx: number) {
-      current = Math.max(0, Math.min(idx, total - 1));
-      // row-reverse track: positive translateX reveals slides to the left (RTL-native "next" enters from left)
-      track.style.transform = `translateX(${current * 100}%)`;
-      pagination.querySelectorAll<HTMLElement>('.svc__dot').forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-      });
-    }
-
-    buildDots();
-    goTo(0);
-  }
-</script>

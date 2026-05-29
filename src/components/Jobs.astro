@@ -10,63 +10,57 @@ const JOB_TYPE_LABELS: Record<string, string> = {
 
 const STATIC_JOBS = [
   {
+    jobNumber: 1001,
     title: 'דרוש/ה עובד/ת ניקיון',
-    location: 'תל אביב-יפו',
+    location: 'גוש דן',
     type: 'משרה מלאה',
-    category: 'מנהל',
-    salary: '₪6,000 – ₪8,000',
-    desc: 'דרוש/ה עובד/ת ניקיון לניקיון בסניפים במרכז. ניסיון קודם יתרון. עבודה בשעות הבוקר.',
-    badge: 'חדש',
+    category: 'ניקיון ואחזקה',
+    desc: 'דרוש/ה עובד/ת ניקיון לעבודה במשרדים, מבנים וארגונים באזור המרכז. התפקיד כולל ניקיון שוטף של חללים ציבוריים, משרדים, חדרי ישיבות, עמדות עבודה.',
     applyUrl: '#contact',
   },
   {
+    jobNumber: 1002,
     title: 'מנהל/ת תחזוקה בכיר/ה',
-    location: 'ירושלים',
+    location: 'ירושלים והסביבה',
     type: 'משרה מלאה',
     category: 'בנייה',
-    salary: '₪12,000 – ₪18,000',
-    desc: 'ניהול צוות תחזוקה ופיקוח על עבודות שוטפות במתחם מגורים גדול. ניסיון של 5 שנים לפחות.',
-    badge: 'דחוף',
+    desc: 'ניהול צוות תחזוקה ופיקוח על עבודות שוטפות במתחם מגורים גדול. ניסיון של 5 שנים לפחות נדרש.',
     applyUrl: '#contact',
   },
   {
+    jobNumber: 1003,
     title: 'מהנדס/ת פרויקטים',
-    location: 'חיפה',
+    location: 'חיפה והצפון',
     type: 'משרה מלאה',
     category: 'הנדסה',
-    salary: '₪15,000 – ₪22,000',
     desc: 'ניהול פרויקטי בנייה ותשתיות. תואר בהנדסה אזרחית / בניין נדרש. רישיון מהנדס רשוי.',
-    badge: null,
     applyUrl: '#contact',
   },
   {
+    jobNumber: 1004,
     title: 'רכז/ת שכר וכ"א',
-    location: 'פתח תקוה',
+    location: 'גוש דן',
     type: 'משרה מלאה',
     category: 'כלכלה',
-    salary: '₪8,000 – ₪12,000',
     desc: 'ניהול תהליכי שכר עבור 200+ עובדים, תיאום עם ממשקים פנים וחוץ ארגוניים.',
-    badge: null,
     applyUrl: '#contact',
   },
   {
+    jobNumber: 1005,
     title: 'נהג/ת מלגזה מוסמך/ת',
-    location: 'אשדוד',
+    location: 'השפלה',
     type: 'משמרות',
     category: 'לוגיסטיקה',
-    salary: '₪7,500 – ₪10,000',
     desc: 'נהג/ת מלגזה למחסן לוגיסטי גדול. רישיון בתוקף ועבודה בסביבה ממוחשבת.',
-    badge: 'חדש',
     applyUrl: '#contact',
   },
   {
+    jobNumber: 1006,
     title: 'מנהל/ת מכירות אזורי/ת',
-    location: 'תל אביב',
+    location: 'גוש דן',
     type: 'משרה מלאה',
     category: 'מכירות',
-    salary: '₪16,000 – ₪25,000',
-    desc: 'ניהול צוות מכירות ופיתוח לקוחות עסקיים. ניסיון של 3 שנים בניהול מכירות.',
-    badge: null,
+    desc: 'ניהול צוות מכירות ופיתוח לקוחות עסקיים באזור המרכז. ניסיון של 3 שנים בניהול מכירות.',
     applyUrl: '#contact',
   },
 ];
@@ -79,13 +73,12 @@ if (projectId) {
     const raw = await sanityClient.fetch(JOBS_QUERY);
     if (raw?.length) {
       jobs = raw.map((j: any) => ({
+        jobNumber: j.jobNumber ?? null,
         title: j.title,
         location: j.location,
         type: JOB_TYPE_LABELS[j.type] ?? j.type ?? '',
-        category: j.category ?? 'הכל',
-        salary: j.salary ?? '',
+        category: j.category ?? '',
         desc: j.description ?? '',
-        badge: j.isUrgent ? 'דחוף' : j.isNew ? 'חדש' : null,
         applyUrl: j.applyUrl ?? '#contact',
       }));
     }
@@ -94,151 +87,263 @@ if (projectId) {
   }
 }
 
-const categories = ['הכל', ...Array.from(new Set(jobs.map(j => j.category).filter(Boolean)))];
+const locations = [...new Set(jobs.map(j => j.location).filter(Boolean))].sort();
+const types = [...new Set(jobs.map(j => j.type).filter(Boolean))].sort();
+const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort();
 ---
 
 <section class="jobs" id="jobs">
-  <div class="jobs__header-bg">
-    <div class="container jobs__header">
-      <div>
-        <p class="jobs__eyebrow">הזדמנויות תעסוקה</p>
-        <h2 class="section-title jobs__title">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="jobs__title-icon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          VEGA דרושים
-        </h2>
-      </div>
-      <a href="#contact" class="btn-primary">שלח/י קו"ח</a>
+
+  <!-- ── Banner ── -->
+  <div class="jobs__banner">
+    <div class="container jobs__banner-inner">
+      <img src="/logos/VEGA-LOGO-white.png" alt="VEGA Holdings" class="jobs__banner-logo" />
+      <h2 class="jobs__banner-title">דרושים</h2>
     </div>
   </div>
 
-  <div class="container jobs__body">
-    <div class="jobs__filters">
-      <div class="jobs__search-wrap">
-        <svg class="jobs__search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="חיפוש לפי תפקיד, עיר..." class="jobs__search" id="jobSearch" />
+  <!-- ── Search panel ── -->
+  <div class="jobs__search-panel">
+    <div class="container jobs__search-container">
+      <div class="jobs__tabs">
+        <button class="jobs__tab active" data-panel="free">חיפוש חופשי</button>
+        <button class="jobs__tab" data-panel="field">חיפוש לפי תחום</button>
       </div>
-      <div class="jobs__cats">
-        {categories.map((cat, i) => (
-          <button class={`jobs__cat ${i === 0 ? 'active' : ''}`} data-cat={cat}>{cat}</button>
+
+      <div class="jobs__panel" id="panel-free">
+        <div class="jobs__inputs-row">
+          <input type="text" placeholder="במה היית רוצה לעבוד?" class="jobs__input" id="searchQuery" />
+          <input type="text" placeholder="איפה?" class="jobs__input" id="searchLocation" />
+        </div>
+      </div>
+
+      <div class="jobs__panel jobs__panel--hidden" id="panel-field">
+        <div class="jobs__cats-row">
+          {categories.map(cat => (
+            <button class="jobs__field-cat" data-cat={cat}>{cat}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="jobs__search-btn-row">
+        <button class="jobs__search-btn" id="searchBtn">למשרות פתוחות</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Body ── -->
+  <div class="container jobs__body">
+
+    <!-- Job list -->
+    <div class="jobs__list-col">
+      <p class="jobs__count">
+        מצאנו <strong id="jobCount">{jobs.length}</strong> משרות שמתאימות לחיפוש שלך
+      </p>
+      <div id="jobsList">
+        {jobs.map(j => (
+          <div
+            class="job-card"
+            data-title={j.title}
+            data-location={j.location}
+            data-type={j.type}
+            data-category={j.category}
+          >
+            <div class="job-card__toprow">
+              <div class="job-card__ref-row">
+                {j.jobNumber != null && (
+                  <span class="job-card__ref">מספר משרה {j.jobNumber}</span>
+                )}
+                <input type="checkbox" class="job-card__check" aria-label="בחר משרה" />
+              </div>
+              <button class="job-card__bookmark" aria-label="שמור משרה">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              </button>
+            </div>
+
+            <h3 class="job-card__title">{j.title}</h3>
+
+            <div class="job-card__meta">
+              <span class="job-card__meta-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                {j.location}
+              </span>
+              <span class="job-card__meta-item">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {j.type}
+              </span>
+            </div>
+
+            {j.desc && <p class="job-card__desc">{j.desc}</p>}
+
+            <div class="job-card__actions">
+              <a href={j.applyUrl} class="job-card__btn-apply">הגשת מועמדות</a>
+              <a href={j.applyUrl} class="job-card__btn-details">פרטים נוספים ←</a>
+            </div>
+          </div>
         ))}
       </div>
     </div>
 
-    <div class="jobs__grid" id="jobsGrid">
-      {jobs.map(j => (
-        <div class="job-card" data-cat={j.category}>
-          <div class="job-card__head">
-            <div>
-              <h3 class="job-card__title">{j.title}</h3>
-              <div class="job-card__meta">
-                <span class="job-card__meta-item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  {j.location}
-                </span>
-                <span class="job-card__meta-item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  {j.type}
-                </span>
-              </div>
-            </div>
-            {j.badge && <span class={`job-card__badge ${j.badge === 'דחוף' ? 'urgent' : ''}`}>{j.badge}</span>}
-          </div>
-          <p class="job-card__desc">{j.desc}</p>
-          <div class="job-card__footer">
-            <span class="job-card__salary">{j.salary}</span>
-            <a href={j.applyUrl} class="job-card__apply">הגש/י מועמדות</a>
-          </div>
-        </div>
-      ))}
-    </div>
+    <!-- Filter sidebar -->
+    <aside class="jobs__sidebar">
+      <div class="jobs__sidebar-head">
+        <span class="jobs__sidebar-title">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          סינון
+        </span>
+        <button class="jobs__expand-all" id="expandAll">פתח הכל</button>
+      </div>
 
-    <div class="jobs__cta">
-      <p>לא מצאת את המשרה שלך?</p>
-      <a href="#contact" class="btn-outline">שלח/י קו"ח פתוח</a>
-    </div>
+      <!-- אזור -->
+      <div class="filter-group open" data-filter-type="location">
+        <button class="filter-group__toggle">
+          <span>אזור</span>
+          <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <div class="filter-group__options">
+          {locations.map(loc => (
+            <label class="filter-option">
+              <input type="checkbox" class="filter-cb loc-cb" value={loc} />
+              <span>{loc}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- סוג/היקף משרה -->
+      <div class="filter-group" data-filter-type="type">
+        <button class="filter-group__toggle">
+          <span>סוג/היקף משרה</span>
+          <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="filter-group__options filter-group__options--hidden">
+          {types.map(t => (
+            <label class="filter-option">
+              <input type="checkbox" class="filter-cb type-cb" value={t} />
+              <span>{t}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <!-- תחום -->
+      <div class="filter-group" data-filter-type="category">
+        <button class="filter-group__toggle">
+          <span>תחום</span>
+          <svg class="filter-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="filter-group__options filter-group__options--hidden">
+          {categories.map(cat => (
+            <label class="filter-option">
+              <input type="checkbox" class="filter-cb cat-cb" value={cat} />
+              <span>{cat}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    </aside>
+
   </div>
 </section>
 
 <style>
-.jobs {
-  background: var(--color-white);
-}
-.jobs__header-bg {
+/* ── Banner ── */
+.jobs__banner {
   background: var(--color-dark);
-  padding: 48px 0 40px;
+  padding: 40px 0;
 }
-.jobs__header {
+.jobs__banner-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
   gap: 20px;
-  flex-wrap: wrap;
 }
-.jobs__eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-teal-mid);
-  margin-bottom: 8px;
+.jobs__banner-logo {
+  height: 56px;
+  width: auto;
 }
-.jobs__title {
-  font-size: clamp(26px, 4vw, 40px);
+.jobs__banner-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 900;
   color: var(--color-white);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.jobs__title-icon { color: var(--color-teal-mid); }
-
-.jobs__body {
-  padding: 40px 24px 80px;
+  line-height: 1;
 }
 
-.jobs__filters {
+/* ── Search panel ── */
+.jobs__search-panel {
+  background: var(--color-teal-light);
+  padding: 28px 0 32px;
+  border-bottom: 1px solid rgba(98,119,120,0.18);
+}
+.jobs__search-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
+  align-items: center;
+  gap: 20px;
 }
-.jobs__search-wrap {
-  position: relative;
+.jobs__tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid rgba(98,119,120,0.2);
+  align-self: flex-start;
 }
-.jobs__search-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #aaa;
+.jobs__tab {
+  background: none;
+  border: none;
+  padding: 8px 20px 10px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(45,55,56,0.55);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
 }
-.jobs__search {
+.jobs__tab.active {
+  color: var(--color-dark);
+  border-bottom-color: var(--color-teal-dark);
+}
+.jobs__panel {
   width: 100%;
-  max-width: 480px;
-  padding: 12px 42px 12px 16px;
-  border: 1.5px solid var(--color-teal-light);
+}
+.jobs__panel--hidden { display: none; }
+
+.jobs__inputs-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+.jobs__input {
+  flex: 1;
+  padding: 13px 18px;
+  border: 1.5px solid rgba(98,119,120,0.25);
   border-radius: 6px;
   font-family: var(--font-base);
   font-size: 14px;
   color: var(--color-dark);
-  background: var(--color-light);
+  background: var(--color-white);
   direction: rtl;
   transition: border-color 0.2s;
 }
-.jobs__search:focus {
+.jobs__input::placeholder { color: #aaa; }
+.jobs__input:focus {
   outline: none;
-  border-color: var(--color-teal-mid);
-  background: var(--color-white);
+  border-color: var(--color-teal-dark);
 }
-.jobs__cats {
+
+.jobs__cats-row {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
 }
-.jobs__cat {
-  background: var(--color-light);
-  border: 1.5px solid var(--color-teal-light);
+.jobs__field-cat {
+  background: var(--color-white);
+  border: 1.5px solid rgba(98,119,120,0.3);
   color: var(--color-dark);
-  padding: 7px 18px;
+  padding: 8px 20px;
   border-radius: 20px;
   font-size: 13px;
   font-weight: 600;
@@ -246,149 +351,390 @@ const categories = ['הכל', ...Array.from(new Set(jobs.map(j => j.category).fi
   cursor: pointer;
   transition: all 0.2s;
 }
-.jobs__cat:hover, .jobs__cat.active {
+.jobs__field-cat:hover,
+.jobs__field-cat.active {
   background: var(--color-teal-dark);
   border-color: var(--color-teal-dark);
   color: var(--color-white);
 }
 
-.jobs__grid {
+.jobs__search-btn-row {
+  display: flex;
+  justify-content: center;
+}
+.jobs__search-btn {
+  background: var(--color-teal-dark);
+  color: var(--color-white);
+  border: none;
+  padding: 12px 40px;
+  border-radius: 6px;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.jobs__search-btn:hover { background: var(--color-dark); }
+
+/* ── Body layout ── */
+.jobs__body {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: 1fr 260px;
+  gap: 32px;
+  padding: 36px 24px 80px;
+  direction: ltr;
+  align-items: start;
+}
+.jobs__list-col,
+.jobs__sidebar {
+  direction: rtl;
 }
 
+/* ── Job count ── */
+.jobs__count {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--color-teal-light);
+}
+.jobs__count strong { color: var(--color-dark); }
+
+/* ── Job card ── */
 .job-card {
   border: 1.5px solid var(--color-teal-light);
-  border-radius: 10px;
-  padding: 24px;
+  border-radius: 8px;
+  padding: 20px 24px;
   background: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  margin-bottom: 16px;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
 .job-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(98,119,120,0.12);
-  border-color: var(--color-teal-mid);
+  box-shadow: 0 4px 16px rgba(98,119,120,0.12);
+  border-color: rgba(98,119,120,0.35);
 }
 .job-card.hidden { display: none; }
 
-.job-card__head {
+.job-card__toprow {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 }
+.job-card__bookmark {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: #bbb;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.job-card__bookmark:hover { color: var(--color-teal-dark); }
+.job-card__bookmark.saved { color: var(--color-teal-dark); fill: currentColor; }
+
+.job-card__ref-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.job-card__ref {
+  font-size: 12px;
+  color: #999;
+}
+.job-card__check {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--color-teal-dark);
+}
+
 .job-card__title {
   font-family: var(--font-condensed);
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--color-dark);
-  margin-bottom: 6px;
+  color: var(--color-teal-dark);
+  margin-bottom: 8px;
 }
+
 .job-card__meta {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 12px;
 }
 .job-card__meta-item {
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: #888;
-}
-.job-card__badge {
-  background: var(--color-teal-light);
-  color: var(--color-teal-dark);
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 12px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.job-card__badge.urgent {
-  background: #FFF0EE;
-  color: #C0412A;
-}
-.job-card__desc {
+  gap: 5px;
   font-size: 13px;
   color: #777;
-  line-height: 1.65;
-  flex: 1;
 }
-.job-card__footer {
+.job-card__meta-item svg { flex-shrink: 0; }
+
+.job-card__desc {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.job-card__actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid var(--color-teal-light);
-  padding-top: 14px;
   gap: 10px;
+  flex-direction: row-reverse;
 }
-.job-card__salary {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-teal-dark);
-}
-.job-card__apply {
-  background: var(--color-teal-dark);
-  color: var(--color-white);
-  padding: 7px 16px;
-  border-radius: 4px;
+.job-card__btn-apply {
+  padding: 8px 18px;
+  border: 1.5px solid var(--color-teal-dark);
+  border-radius: 5px;
   font-size: 13px;
   font-weight: 600;
+  color: var(--color-teal-dark);
+  background: transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.job-card__btn-apply:hover {
+  background: var(--color-teal-dark);
+  color: var(--color-white);
+}
+.job-card__btn-details {
+  padding: 8px 18px;
+  border: 1.5px solid var(--color-dark);
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--color-dark);
   transition: background 0.2s;
   white-space: nowrap;
 }
-.job-card__apply:hover { background: var(--color-dark); }
+.job-card__btn-details:hover { background: var(--color-teal-dark); border-color: var(--color-teal-dark); }
 
-.jobs__cta {
-  margin-top: 48px;
-  text-align: center;
+/* ── Sidebar ── */
+.jobs__sidebar {
+  border: 1.5px solid var(--color-teal-light);
+  border-radius: 8px;
+  overflow: hidden;
+  position: sticky;
+  top: 100px;
+}
+.jobs__sidebar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1.5px solid var(--color-teal-light);
+}
+.jobs__sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.jobs__expand-all {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--color-teal-dark);
+  cursor: pointer;
+  font-family: var(--font-base);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.filter-group {
+  border-bottom: 1px solid var(--color-teal-light);
+}
+.filter-group:last-child { border-bottom: none; }
+
+.filter-group__toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 13px 16px;
+  background: none;
+  border: none;
+  font-family: var(--font-base);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-dark);
+  cursor: pointer;
+  text-align: right;
+  direction: rtl;
+}
+.filter-group__toggle:hover { background: rgba(98,119,120,0.04); }
+
+.filter-arrow { transition: transform 0.2s; flex-shrink: 0; }
+.filter-group.open .filter-arrow { transform: rotate(0deg); }
+.filter-group:not(.open) .filter-arrow { transform: rotate(180deg); }
+
+.filter-group__options {
+  padding: 4px 16px 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  gap: 8px;
 }
-.jobs__cta p { color: #888; font-size: 15px; }
+.filter-group__options--hidden { display: none; }
 
-@media (max-width: 900px) {
-  .jobs__grid { grid-template-columns: repeat(2, 1fr); }
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+  cursor: pointer;
+  direction: rtl;
 }
-@media (max-width: 600px) {
-  .jobs__grid { grid-template-columns: 1fr; }
-  .jobs__cats { gap: 6px; }
+.filter-option input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--color-teal-dark);
+  flex-shrink: 0;
+}
+.filter-option:hover { color: var(--color-dark); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .jobs__body {
+    grid-template-columns: 1fr;
+    direction: rtl;
+  }
+  .jobs__sidebar {
+    order: -1;
+    position: static;
+  }
+  .jobs__inputs-row { flex-direction: column; }
 }
 </style>
 
 <script>
-  const searchInput = document.getElementById('jobSearch') as HTMLInputElement;
-  const catBtns = document.querySelectorAll('.jobs__cat');
+  // ── Elements ────────────────────────────────────────────────
   const cards = document.querySelectorAll('.job-card') as NodeListOf<HTMLElement>;
-  let activecat = 'הכל';
+  const jobCount = document.getElementById('jobCount')!;
+  const searchQuery = document.getElementById('searchQuery') as HTMLInputElement;
+  const searchLocation = document.getElementById('searchLocation') as HTMLInputElement;
+  const searchBtn = document.getElementById('searchBtn')!;
 
+  // Tabs
+  const tabs = document.querySelectorAll('.jobs__tab');
+  const panelFree = document.getElementById('panel-free')!;
+  const panelField = document.getElementById('panel-field')!;
+  const fieldCats = document.querySelectorAll('.jobs__field-cat');
+
+  // Sidebar checkboxes
+  const locCbs = document.querySelectorAll('.loc-cb') as NodeListOf<HTMLInputElement>;
+  const typeCbs = document.querySelectorAll('.type-cb') as NodeListOf<HTMLInputElement>;
+  const catCbs = document.querySelectorAll('.cat-cb') as NodeListOf<HTMLInputElement>;
+
+  // Filter state
+  let activeFieldCat = '';
+
+  // ── Filter logic ─────────────────────────────────────────────
   function filterJobs() {
-    const q = searchInput.value.trim().toLowerCase();
+    const q = (searchQuery?.value ?? '').toLowerCase().trim();
+    const locQ = (searchLocation?.value ?? '').toLowerCase().trim();
+
+    const checkedLocs = new Set([...locCbs].filter(c => c.checked).map(c => c.value));
+    const checkedTypes = new Set([...typeCbs].filter(c => c.checked).map(c => c.value));
+    const checkedCats = new Set([...catCbs].filter(c => c.checked).map(c => c.value));
+
+    let count = 0;
     cards.forEach(card => {
-      const cat = card.dataset.cat || '';
-      const text = card.textContent?.toLowerCase() || '';
-      const matchCat = activecat === 'הכל' || cat === activecat;
-      const matchSearch = !q || text.includes(q);
-      card.classList.toggle('hidden', !(matchCat && matchSearch));
+      const title = card.dataset.title?.toLowerCase() ?? '';
+      const loc = card.dataset.location ?? '';
+      const type = card.dataset.type ?? '';
+      const cat = card.dataset.category ?? '';
+
+      const matchQuery = !q || title.includes(q);
+      const matchLocText = !locQ || loc.toLowerCase().includes(locQ);
+      const matchLocCb = checkedLocs.size === 0 || checkedLocs.has(loc);
+      const matchTypeCb = checkedTypes.size === 0 || checkedTypes.has(type);
+      const matchCatCb = checkedCats.size === 0 || checkedCats.has(cat);
+      const matchFieldCat = !activeFieldCat || cat === activeFieldCat;
+
+      const visible = matchQuery && matchLocText && matchLocCb && matchTypeCb && matchCatCb && matchFieldCat;
+      card.classList.toggle('hidden', !visible);
+      if (visible) count++;
     });
+
+    if (jobCount) jobCount.textContent = String(count);
   }
 
-  catBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      catBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activecat = (btn as HTMLElement).dataset.cat || 'הכל';
+  // ── Tab switching ─────────────────────────────────────────────
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const panel = (tab as HTMLElement).dataset.panel;
+      panelFree.classList.toggle('jobs__panel--hidden', panel !== 'free');
+      panelField.classList.toggle('jobs__panel--hidden', panel !== 'field');
+      if (panel === 'free') activeFieldCat = '';
       filterJobs();
     });
   });
 
-  searchInput?.addEventListener('input', filterJobs);
+  // ── Field category pills ──────────────────────────────────────
+  fieldCats.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = (btn as HTMLElement).dataset.cat ?? '';
+      if (activeFieldCat === cat) {
+        activeFieldCat = '';
+        btn.classList.remove('active');
+      } else {
+        fieldCats.forEach(b => b.classList.remove('active'));
+        activeFieldCat = cat;
+        btn.classList.add('active');
+      }
+      filterJobs();
+    });
+  });
+
+  // ── Search button & live text search ─────────────────────────
+  searchBtn?.addEventListener('click', filterJobs);
+  searchQuery?.addEventListener('input', filterJobs);
+  searchLocation?.addEventListener('input', filterJobs);
+
+  // ── Sidebar checkboxes (real-time) ────────────────────────────
+  document.querySelectorAll('.filter-cb').forEach(cb => {
+    cb.addEventListener('change', filterJobs);
+  });
+
+  // ── Sidebar expand/collapse ───────────────────────────────────
+  document.querySelectorAll('.filter-group__toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.closest('.filter-group')!;
+      const opts = group.querySelector('.filter-group__options')!;
+      const isOpen = group.classList.contains('open');
+      group.classList.toggle('open', !isOpen);
+      opts.classList.toggle('filter-group__options--hidden', isOpen);
+    });
+  });
+
+  // ── Expand all ────────────────────────────────────────────────
+  const expandAllBtn = document.getElementById('expandAll')!;
+  let allExpanded = false;
+  expandAllBtn?.addEventListener('click', () => {
+    allExpanded = !allExpanded;
+    document.querySelectorAll('.filter-group').forEach(group => {
+      const opts = group.querySelector('.filter-group__options')!;
+      group.classList.toggle('open', allExpanded);
+      opts.classList.toggle('filter-group__options--hidden', !allExpanded);
+    });
+    expandAllBtn.textContent = allExpanded ? 'סגור הכל' : 'פתח הכל';
+  });
+
+  // ── Bookmark toggle ───────────────────────────────────────────
+  document.querySelectorAll('.job-card__bookmark').forEach(btn => {
+    btn.addEventListener('click', () => btn.classList.toggle('saved'));
+  });
 </script>

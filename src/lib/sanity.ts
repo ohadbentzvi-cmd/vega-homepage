@@ -6,7 +6,7 @@ export const sanityClient = createClient({
   projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'unconfigured',
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2025-01-01',
-  useCdn: true,
+  useCdn: import.meta.env.PROD,
 })
 
 const builder = imageUrlBuilder(sanityClient)
@@ -17,6 +17,7 @@ export const urlFor = (source: SanityImageSource) => builder.image(source)
 export const JOBS_QUERY = `
   *[_type == "job" && isActive == true] | order(publishedAt desc) {
     _id,
+    jobNumber,
     title,
     location,
     type,

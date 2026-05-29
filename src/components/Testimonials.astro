@@ -3,32 +3,52 @@ import { sanityClient, urlFor, TESTIMONIALS_QUERY } from '../lib/sanity';
 
 const STATIC_TESTIMONIALS = [
   {
-    name: 'דנה לוי',
-    role: 'מנהלת משאבי אנוש, חברת הייטק',
-    quote: 'VEGA מצאה לנו מועמד מעולה תוך שבוע – תהליך מקצועי, מהיר ומדויק. אנחנו עובדים איתם כבר שלוש שנים ולא מתכוונים להחליף.',
+    name: 'רונית אשכנזי',
+    role: 'מנהלת משרד',
+    company: 'חברת ביטוח ישיר',
+    quote: 'העובדים של Vega הם חלק בלתי נפרד מהצוות שלנו. השירות מקצועי, האנשים אדיבים והסטנדרטים גבוהים.',
     stars: 5,
     img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&q=80',
   },
   {
-    name: 'יוסי כהן',
-    role: 'מנכ"ל, חברת בנייה',
-    quote: 'ניהול המבנים של VEGA חסך לנו עשרות אחוזים בעלויות תפעוליות. הצוות מקצועי ואמין, ממליץ בחום.',
+    name: 'יוסי ברק',
+    role: 'מנהל תפעול',
+    company: 'קבוצת קניוני עזריאלי',
+    quote: 'שנים שאנחנו עובדים עם Vega ונהנים משקט תפעולי, זמינות מלאה ופתרון לכל אתגר. פשוט שותפים לדרך.',
     stars: 5,
     img: 'https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=200&q=80',
   },
   {
-    name: 'מיכל שפירא',
-    role: 'מנהלת פרויקטים בכירה',
-    quote: 'כמועמדת שפנתה ל-VEGA, קיבלתי ליווי אישי ומקצועי לאורך כל הדרך. היום אני בתפקיד חלומי שמצאו עבורי.',
+    name: 'מיכל כהן',
+    role: 'מנהלת משאבי אנוש',
+    company: 'חברת הייטק גלובלית',
+    quote: 'Vega מספקים לנו שירותי ניקיון ואחזקה ברמה הגבוהה ביותר. היחס האישי והמקצועיות עושים את כל ההבדל.',
     stars: 5,
     img: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
   },
   {
     name: 'אמיר גל',
-    role: 'סמנכ"ל כספים, חברת ייצור',
-    quote: 'שיתוף הפעולה עם VEGA הוא אחד ההחלטות הטובות שקיבלנו. הם מבינים את הצרכים שלנו ומביאים את הכישרונות הנכונים.',
+    role: 'סמנכ"ל כספים',
+    company: 'חברת ייצור',
+    quote: 'שיתוף הפעולה עם VEGA הוא אחת ההחלטות הטובות שקיבלנו. הם מבינים את הצרכים שלנו ומביאים את הכישרונות הנכונים.',
     stars: 5,
     img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80',
+  },
+  {
+    name: 'שירה לוי',
+    role: 'מנהלת פרויקטים',
+    company: 'רשת מלונות בינלאומית',
+    quote: 'VEGA ליוו אותנו לאורך כל הדרך. מהגיוס הראשון ועד קליטת עשרות עובדים — מקצועיות ויחס אישי בכל שלב.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80',
+  },
+  {
+    name: 'דן אברהם',
+    role: 'מנכ"ל',
+    company: 'חברת בנייה ופיתוח',
+    quote: 'ניהול המבנים של VEGA חסך לנו עשרות אחוזים בעלויות תפעוליות. הצוות מקצועי ואמין, ממליץ בחום.',
+    stars: 5,
+    img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80',
   },
 ];
 
@@ -41,10 +61,11 @@ if (projectId) {
     if (raw?.length) {
       testimonials = raw.map((t: any) => ({
         name: t.name,
-        role: [t.role, t.company].filter(Boolean).join(', '),
+        role: t.role ?? '',
+        company: t.company ?? '',
         quote: t.quote,
         stars: t.rating ?? 5,
-        img: t.avatar ? urlFor(t.avatar).width(88).height(88).fit('crop').auto('format').url() : null,
+        img: t.avatar ? urlFor(t.avatar).width(100).height(100).fit('crop').auto('format').url() : null,
       }));
     }
   } catch (e) {
@@ -53,117 +74,326 @@ if (projectId) {
 }
 ---
 
-<section class="testimonials" id="testimonials">
+<section class="testi" id="testimonials">
   <div class="container">
-    <div class="testimonials__header">
-      <p class="testimonials__eyebrow">לקוחות ומועמדים</p>
-      <h2 class="section-title testimonials__title">האמון שלנו, ההצלחה שלנו</h2>
-      <p class="testimonials__sub">מה אומרים עלינו הלקוחות והמועמדים שלנו</p>
+
+    <div class="testi__carousel" id="testiCarousel">
+
+      <!-- Prev — first in DOM = right side in RTL -->
+      <button class="testi__arrow testi__arrow--prev" id="testiPrev" aria-label="הקודם">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+      <div class="testi__viewport">
+        <div class="testi__track" id="testiTrack">
+          {testimonials.map(t => (
+            <div class="testi__slide">
+              <article class="tcard">
+
+                <!-- Decorative icon -->
+                <div class="tcard__icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="12" y1="2" x2="12" y2="22"/>
+                    <line x1="2" y1="12" x2="22" y2="12"/>
+                    <line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/>
+                    <line x1="19.1" y1="4.9" x2="4.9" y2="19.1"/>
+                  </svg>
+                </div>
+
+                <!-- Quote -->
+                <p class="tcard__quote">{t.quote}</p>
+
+                <!-- Stars -->
+                <div class="tcard__stars" aria-label={`${t.stars} כוכבים מתוך 5`}>
+                  {Array(t.stars).fill(null).map(() => (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#F5A623" xmlns="http://www.w3.org/2000/svg">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  ))}
+                </div>
+
+                <!-- Author row -->
+                <div class="tcard__author">
+                  <div class="tcard__info">
+                    <p class="tcard__name">{t.name}</p>
+                    {t.role    && <p class="tcard__role">{t.role}</p>}
+                    {t.company && <p class="tcard__company">{t.company}</p>}
+                  </div>
+                  {t.img && (
+                    <img src={t.img} alt={t.name} class="tcard__avatar" loading="lazy" />
+                  )}
+                </div>
+
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Next — last in DOM = left side in RTL -->
+      <button class="testi__arrow testi__arrow--next" id="testiNext" aria-label="הבא">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
     </div>
 
-    <div class="testimonials__grid">
-      {testimonials.map(t => (
-        <div class="testimonials__card">
-          <div class="testimonials__stars">
-            {Array(t.stars).fill(null).map(() => (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#AAC0C0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            ))}
-          </div>
-          <p class="testimonials__quote">"{t.quote}"</p>
-          <div class="testimonials__author">
-            {t.img && <img src={t.img} alt={t.name} class="testimonials__avatar" loading="lazy" />}
-            <div>
-              <p class="testimonials__name">{t.name}</p>
-              <p class="testimonials__role">{t.role}</p>
-            </div>
-          </div>
-        </div>
-      ))}
+    <!-- Pagination dots -->
+    <div class="testi__dots" id="testiDots"></div>
+
+    <!-- CTA -->
+    <div class="testi__cta-wrap">
+      <a href="#contact" class="testi__cta">קראו עוד המלצות</a>
     </div>
+
   </div>
 </section>
 
 <style>
-.testimonials {
-  padding: var(--section-pad);
+/* ── Section ────────────────────────────────────────── */
+.testi {
   background: var(--color-light);
-}
-.testimonials__header {
-  text-align: center;
-  margin-bottom: 52px;
-}
-.testimonials__eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-teal-dark);
-  margin-bottom: 10px;
-}
-.testimonials__title {
-  font-size: clamp(26px, 4vw, 38px);
-  margin-bottom: 12px;
-}
-.testimonials__sub {
-  color: #888;
-  font-size: 16px;
+  padding: 64px 0 56px;
 }
 
-.testimonials__grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.testimonials__card {
-  background: var(--color-white);
-  border: 1px solid var(--color-teal-light);
-  border-radius: 10px;
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-.testimonials__card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(98,119,120,0.12);
-}
-.testimonials__stars {
-  display: flex;
-  gap: 3px;
-}
-.testimonials__quote {
-  font-size: 14px;
-  line-height: 1.75;
-  color: #555;
-  flex: 1;
-}
-.testimonials__author {
+/* ── Carousel shell ─────────────────────────────────── */
+.testi__carousel {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
-.testimonials__avatar {
+.testi__viewport {
+  flex: 1;
+  overflow: hidden;
+}
+.testi__track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s cubic-bezier(0.25, 0, 0.1, 1);
+  will-change: transform;
+}
+.testi__slide {
+  flex: 0 0 calc((100% - 2 * 20px) / 3);
+  min-width: 0;
+}
+
+/* ── Arrow buttons ──────────────────────────────────── */
+.testi__arrow {
+  flex-shrink: 0;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
+  background: var(--color-teal-dark);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
 }
-.testimonials__name {
+.testi__arrow:hover  { background: var(--color-dark); }
+.testi__arrow:disabled {
+  background: var(--color-teal-light);
+  color: var(--color-teal-dark);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Card ───────────────────────────────────────────── */
+.tcard {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(64, 65, 65, 0.08);
+  padding: 28px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+/* Decorative icon */
+.tcard__icon {
+  display: flex;
+  justify-content: center;
+  color: var(--color-dark);
+  opacity: 0.75;
+}
+
+/* Quote */
+.tcard__quote {
+  font-size: 14.5px;
+  line-height: 1.78;
+  color: var(--color-dark);
+  flex: 1;
+}
+
+/* Stars */
+.tcard__stars {
+  display: flex;
+  gap: 2px;
+}
+
+/* Author */
+.tcard__author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+  border-top: 1px solid var(--color-teal-light);
+}
+.tcard__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.tcard__name {
   font-size: 14px;
   font-weight: 700;
   color: var(--color-dark);
 }
-.testimonials__role {
+.tcard__role {
+  font-size: 13px;
+  color: var(--color-teal-dark);
+}
+.tcard__company {
   font-size: 12px;
   color: #999;
 }
+.tcard__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 
-@media (max-width: 1024px) {
-  .testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+/* ── Dots ───────────────────────────────────────────── */
+.testi__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+/* ── CTA ────────────────────────────────────────────── */
+.testi__cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.testi__cta {
+  display: inline-block;
+  padding: 12px 48px;
+  border: 1.5px solid var(--color-teal-mid);
+  border-radius: 6px;
+  color: var(--color-dark);
+  font-size: 15px;
+  font-weight: 500;
+  background: transparent;
+  transition: background 0.2s, border-color 0.2s;
+  text-decoration: none;
+}
+.testi__cta:hover {
+  background: var(--color-teal-light);
+  border-color: var(--color-teal-dark);
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .testi__slide {
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
 }
 @media (max-width: 600px) {
-  .testimonials__grid { grid-template-columns: 1fr; }
+  .testi__slide {
+    flex: 0 0 100%;
+  }
 }
 </style>
+
+<!-- Dot styles live here because the buttons are created by JS and get no Astro scope hash -->
+<style is:global>
+.testi__dot {
+  width: 28px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--color-teal-light);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, width 0.2s;
+}
+.testi__dot.active {
+  background: var(--color-teal-dark);
+  width: 40px;
+}
+</style>
+
+<script>
+  const track   = document.getElementById('testiTrack')   as HTMLElement;
+  const dotsEl  = document.getElementById('testiDots')    as HTMLElement;
+  const prevBtn = document.getElementById('testiPrev')    as HTMLButtonElement;
+  const nextBtn = document.getElementById('testiNext')    as HTMLButtonElement;
+  const slides  = track?.querySelectorAll<HTMLElement>('.testi__slide');
+
+  if (track && slides && slides.length) {
+    let current = 0;
+
+    function visibleCount() {
+      const w = track.parentElement!.offsetWidth;
+      if (w < 600) return 1;
+      if (w < 900) return 2;
+      return 3;
+    }
+
+    function pageCount() {
+      return Math.ceil(slides.length / visibleCount());
+    }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < pageCount(); i++) {
+        const d = document.createElement('button');
+        d.className = 'testi__dot' + (i === current ? ' active' : '');
+        d.setAttribute('aria-label', `עמוד ${i + 1}`);
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function goTo(page: number) {
+      const pages = pageCount();
+      current = Math.max(0, Math.min(page, pages - 1));
+
+      const vc = visibleCount();
+      const gap = 20;
+      const slideWidth = slides[0].offsetWidth + gap;
+      // RTL flex: positive translateX reveals slides to the left (advancing forward)
+      track.style.transform = `translateX(${current * vc * slideWidth}px)`;
+
+      dotsEl.querySelectorAll<HTMLElement>('.testi__dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current >= pages - 1;
+    }
+
+    buildDots();
+    goTo(0);
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { current = 0; buildDots(); goTo(0); }, 150);
+    });
+  }
+</script>
