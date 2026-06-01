@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { sanityClient, POSTS_QUERY, urlFor } from '../../lib/sanity';
+
+interface Post {
+  _id: string;
+  title: string;
+  slug: string;
+  coverImage?: any;
+  excerpt?: string;
+  author?: string;
+  publishedAt: string;
+}
+
+let posts: Post[] = [];
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+
+if (projectId) {
+  try {
+    posts = await sanityClient.fetch(POSTS_QUERY);
+  } catch (e) {
+    console.warn('[Blog] Sanity fetch failed');
+  }
+}
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout title="בלוג | VEGA Holdings" description="מאמרים, עדכונים וחדשות מבית VEGA Holdings">
+  <Header />
+  <main id="main-content">
+
+    <!-- Banner -->
+    <div class="blog__banner">
+      <div class="container blog__banner-inner">
+        <img src="/logos/VEGA-LOGO-white.png" alt="VEGA Holdings" class="blog__banner-logo" />
+        <h1 class="blog__banner-title">בלוג</h1>
+      </div>
+    </div>
+
+    <!-- Posts grid -->
+    <div class="container blog__body">
+      {posts.length === 0 ? (
+        <div class="blog__empty">
+          <p>אין פוסטים עדיין. חזרו בקרוב!</p>
+        </div>
+      ) : (
+        <div class="blog__grid">
+          {posts.map(post => (
+            <a href={`/blog/${post.slug}`} class="post-card">
+              <div class="post-card__image-wrap">
+                {post.coverImage ? (
+                  <img
+                    src={urlFor(post.coverImage).width(640).height(360).fit('crop').url()}
+                    alt={post.title}
+                    class="post-card__image"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="post-card__image-placeholder" aria-hidden="true"></div>
+                )}
+              </div>
+              <div class="post-card__body">
+                <p class="post-card__meta">
+                  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                  {post.author && <span class="post-card__author"> · {post.author}</span>}
+                </p>
+                <h2 class="post-card__title">{post.title}</h2>
+                {post.excerpt && <p class="post-card__excerpt">{post.excerpt}</p>}
+                <span class="post-card__readmore">קרא עוד ←</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.blog__banner {
+  background: var(--color-dark);
+  padding: 40px 0;
+}
+.blog__banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.blog__banner-logo {
+  height: 88px;
+  width: auto;
+}
+.blog__banner-title {
+  font-family: var(--font-condensed);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.blog__body {
+  padding: 56px 24px 80px;
+}
+
+.blog__empty {
+  text-align: center;
+  padding: 80px 0;
+  color: rgba(64,65,65,0.45);
+  font-size: 18px;
+}
+
+.blog__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--color-teal-light);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-white);
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.post-card:hover {
+  box-shadow: 0 4px 20px rgba(98,119,120,0.14);
+  border-color: rgba(98,119,120,0.35);
+}
+
+.post-card__image-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--color-teal-light);
+}
+.post-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.post-card:hover .post-card__image {
+  transform: scale(1.04);
+}
+.post-card__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--color-teal-light) 0%, var(--color-teal-mid) 100%);
+}
+
+.post-card__body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.post-card__meta {
+  font-size: 12.5px;
+  color: rgba(64,65,65,0.45);
+  margin-bottom: 10px;
+}
+.post-card__author {
+  color: rgba(64,65,65,0.45);
+}
+
+.post-card__title {
+  font-family: var(--font-condensed);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+.post-card:hover .post-card__title {
+  color: var(--color-teal-dark);
+}
+
+.post-card__excerpt {
+  font-size: 14px;
+  color: rgba(64,65,65,0.6);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.post-card__readmore {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-teal-dark);
+  margin-top: auto;
+}
+
+@media (max-width: 900px) {
+  .blog__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .blog__grid { grid-template-columns: 1fr; }
+}
+</style>

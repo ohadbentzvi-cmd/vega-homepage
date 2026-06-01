@@ -1,10 +1,14 @@
 ---
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
+
 const navLinks = [
-  { label: 'דף הבית', href: '#hero', active: true },
-  { label: 'אודות', href: '#about' },
-  { label: 'תחומי פעילות', href: '#services-1' },
-  { label: 'דרושים', href: '#jobs' },
-  { label: 'יצירת קשר', href: '#contact' },
+  { label: 'דף הבית', href: isHome ? '#hero' : '/#hero' },
+  { label: 'אודות', href: isHome ? '#about' : '/#about' },
+  { label: 'תחומי פעילות', href: isHome ? '#services-1' : '/#services-1' },
+  { label: 'דרושים', href: isHome ? '#jobs' : '/#jobs' },
+  { label: 'יצירת קשר', href: isHome ? '#contact' : '/#contact' },
+  { label: 'בלוג', href: '/blog' },
 ];
 ---
 
@@ -37,7 +41,7 @@ const navLinks = [
       <ul class="header__links" role="list">
         {navLinks.map(link => (
           <li>
-            <a href={link.href} class={`header__link ${link.active ? 'header__link--active' : ''}`}>
+            <a href={link.href} class={`header__link ${link.href === '/blog' && currentPath.startsWith('/blog') ? 'header__link--active' : ''}`}>
               {link.label}
             </a>
           </li>

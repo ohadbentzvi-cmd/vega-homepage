@@ -1,0 +1,133 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { sanityClient, POSTS_QUERY, POST_BY_SLUG_QUERY, urlFor } from '../../lib/sanity';
+
+export async function getStaticPaths() {
+  const posts = await sanityClient.fetch(POSTS_QUERY);
+  return posts.map((post: { slug: string }) => ({ params: { slug: post.slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout title={`${post.title} | VEGA Holdings`} description={post.excerpt ?? ''}>
+  <Header />
+  <main id="main-content">
+
+    <article class="post">
+
+      {post.coverImage && (
+        <div class="post__hero">
+          <img
+            src={urlFor(post.coverImage).width(1200).height(500).fit('crop').url()}
+            alt={post.title}
+            class="post__hero-img"
+          />
+        </div>
+      )}
+
+      <div class="container post__container">
+
+        <a href="/blog" class="post__back">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          חזרה לבלוג
+        </a>
+
+        <header class="post__header">
+          <p class="post__meta">
+            <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+            {post.author && <span> · {post.author}</span>}
+          </p>
+          <h1 class="post__title">{post.title}</h1>
+          {post.excerpt && <p class="post__excerpt">{post.excerpt}</p>}
+        </header>
+
+        <div class="post__body">
+          {(post.body ?? '').split('\n').filter((p: string) => p.trim()).map((paragraph: string) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.post__hero {
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  background: var(--color-teal-light);
+}
+.post__hero-img {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+.post__container {
+  max-width: 760px;
+  padding: 48px 24px 80px;
+}
+
+.post__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-teal-dark);
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: color 0.2s;
+}
+.post__back:hover { color: var(--color-dark); }
+.post__back svg { transform: rotate(180deg); }
+
+.post__header {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1.5px solid var(--color-teal-light);
+}
+
+.post__meta {
+  font-size: 13px;
+  color: rgba(64,65,65,0.45);
+  margin-bottom: 14px;
+}
+
+.post__title {
+  font-family: var(--font-condensed);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  color: var(--color-dark);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.post__excerpt {
+  font-size: 17px;
+  color: rgba(64,65,65,0.6);
+  line-height: 1.6;
+}
+
+.post__body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(64,65,65,0.85);
+}
+.post__body p {
+  margin-bottom: 1.4em;
+}
+</style>
