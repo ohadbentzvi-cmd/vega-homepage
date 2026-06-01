@@ -149,17 +149,33 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
             data-location={j.location}
             data-type={j.type}
             data-category={j.category}
+            data-job-number={j.jobNumber ?? ''}
           >
             <div class="job-card__toprow">
               <div class="job-card__ref-row">
                 {j.jobNumber != null && (
                   <span class="job-card__ref">מספר משרה {j.jobNumber}</span>
                 )}
-                <input type="checkbox" class="job-card__check" aria-label="בחר משרה" />
               </div>
-              <button class="job-card__bookmark" aria-label="שמור משרה">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-              </button>
+              <div class="job-card__share-wrap">
+                <button class="job-card__share" aria-label="שתף משרה">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </button>
+                <div class="job-card__share-menu" role="menu">
+                  <a class="job-card__share-opt share-wa" href="#" target="_blank" rel="noopener noreferrer" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    וואטסאפ
+                  </a>
+                  <a class="job-card__share-opt share-fb" href="#" target="_blank" rel="noopener noreferrer" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    פייסבוק
+                  </a>
+                  <button class="job-card__share-opt share-copy" role="menuitem">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    העתק קישור
+                  </button>
+                </div>
+              </div>
             </div>
 
             <h3 class="job-card__title">{j.title}</h3>
@@ -178,8 +194,7 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
             {j.desc && <p class="job-card__desc">{j.desc}</p>}
 
             <div class="job-card__actions">
-              <a href={j.applyUrl} class="job-card__btn-apply">הגשת מועמדות</a>
-              <a href={j.applyUrl} class="job-card__btn-details">פרטים נוספים ←</a>
+              <button type="button" class="job-card__btn-apply">הגשת מועמדות</button>
             </div>
           </div>
         ))}
@@ -423,7 +438,10 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   align-items: center;
   margin-bottom: 10px;
 }
-.job-card__bookmark {
+.job-card__share-wrap {
+  position: relative;
+}
+.job-card__share {
   background: none;
   border: none;
   cursor: pointer;
@@ -433,8 +451,46 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   align-items: center;
   transition: color 0.2s;
 }
-.job-card__bookmark:hover { color: var(--color-teal-dark); }
-.job-card__bookmark.saved { color: var(--color-teal-dark); fill: currentColor; }
+.job-card__share:hover { color: var(--color-teal-dark); }
+
+.job-card__share-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  padding: 6px;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 148px;
+  z-index: 20;
+}
+.job-card__share-wrap.open .job-card__share-menu {
+  display: flex;
+}
+.job-card__share-opt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Assistant', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: none;
+  color: var(--color-dark);
+  transition: background 0.15s;
+  white-space: nowrap;
+  direction: rtl;
+}
+.job-card__share-opt:hover { background: rgba(0,0,0,0.05); }
+.share-wa { color: #25d366; }
+.share-fb { color: #1877f2; }
 
 .job-card__ref-row {
   display: flex;
@@ -444,12 +500,6 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
 .job-card__ref {
   font-size: 12px;
   color: rgba(64,65,65,0.4);
-}
-.job-card__check {
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-  accent-color: var(--color-teal-dark);
 }
 
 .job-card__title {
@@ -496,8 +546,10 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   border-radius: 5px;
   font-size: 13px;
   font-weight: 600;
+  font-family: var(--font-base);
   color: var(--color-teal-dark);
   background: transparent;
+  cursor: pointer;
   transition: background 0.2s, color 0.2s;
   white-space: nowrap;
 }
@@ -505,18 +557,6 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
   background: var(--color-teal-dark);
   color: var(--color-white);
 }
-.job-card__btn-details {
-  padding: 8px 18px;
-  border: 1.5px solid var(--color-dark);
-  border-radius: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-white);
-  background: var(--color-dark);
-  transition: background 0.2s;
-  white-space: nowrap;
-}
-.job-card__btn-details:hover { background: var(--color-teal-dark); border-color: var(--color-teal-dark); }
 
 /* ── Sidebar ── */
 .jobs__sidebar {
@@ -738,8 +778,81 @@ const categories = [...new Set(jobs.map(j => j.category).filter(Boolean))].sort(
     expandAllBtn.textContent = allExpanded ? 'סגור הכל' : 'פתח הכל';
   });
 
-  // ── Bookmark toggle ───────────────────────────────────────────
-  document.querySelectorAll('.job-card__bookmark').forEach(btn => {
-    btn.addEventListener('click', () => btn.classList.toggle('saved'));
+  // ── Share dropdown ────────────────────────────────────────────
+  const shareUrl = window.location.origin + '/#jobs';
+
+  document.querySelectorAll('.job-card__share-wrap').forEach(wrap => {
+    const card = wrap.closest('.job-card') as HTMLElement;
+    const btn = wrap.querySelector('.job-card__share')!;
+    const menu = wrap.querySelector('.job-card__share-menu')!;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.job-card__share-wrap.open').forEach(w => w.classList.remove('open'));
+      if (!isOpen) {
+        const title = card.dataset.title ?? '';
+        const location = card.dataset.location ?? '';
+        const text = `משרה: ${title}${location ? ' | ' + location : ''}\n${shareUrl}`;
+        (menu.querySelector('.share-wa') as HTMLAnchorElement).href =
+          `https://wa.me/?text=${encodeURIComponent(text)}`;
+        (menu.querySelector('.share-fb') as HTMLAnchorElement).href =
+          `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        wrap.classList.add('open');
+      }
+    });
+
+    menu.querySelector('.share-copy')!.addEventListener('click', () => {
+      navigator.clipboard.writeText(shareUrl).then(() => {
+        const toast = document.createElement('div');
+        toast.textContent = 'הקישור הועתק!';
+        Object.assign(toast.style, {
+          position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+          background: 'var(--color-teal-dark)', color: '#fff', padding: '8px 20px',
+          borderRadius: '6px', fontSize: '14px', fontFamily: 'Assistant,sans-serif',
+          zIndex: '9999', pointerEvents: 'none',
+        });
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2200);
+      });
+      wrap.classList.remove('open');
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.job-card__share-wrap.open').forEach(w => w.classList.remove('open'));
+  });
+
+  // ── Apply button → pre-fill contact form ─────────────────────
+  document.querySelectorAll('.job-card__btn-apply').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.job-card') as HTMLElement;
+      const title = card.dataset.title ?? '';
+      const location = card.dataset.location ?? '';
+      const type = card.dataset.type ?? '';
+      const jobNumber = card.dataset.jobNumber ?? '';
+
+      const subject = document.getElementById('subject') as HTMLSelectElement | null;
+      const message = document.getElementById('message') as HTMLTextAreaElement | null;
+      const jobContext = document.getElementById('jobContext') as HTMLInputElement | null;
+      const jobBanner = document.getElementById('jobBanner') as HTMLElement | null;
+      const jobBannerText = document.getElementById('jobBannerText') as HTMLElement | null;
+
+      if (subject) subject.value = 'אני מחפש/ת עבודה';
+      if (message) {
+        const numPart = jobNumber ? ` (מספר משרה ${jobNumber})` : '';
+        const typePart = type ? ` — ${type}` : '';
+        message.value = `שלום,\nאני מעוניין/ת להגיש מועמדות למשרת "${title}"${numPart}${typePart}, ${location}.\nאשמח לשמוע פרטים נוספים.`;
+      }
+      if (jobContext) {
+        jobContext.value = `${title}${jobNumber ? ' | מספר משרה ' + jobNumber : ''}`;
+      }
+      if (jobBanner && jobBannerText) {
+        jobBannerText.textContent = `מועמד/ת למשרת: ${title}${jobNumber ? ' | מס׳ ' + jobNumber : ''}`;
+        jobBanner.hidden = false;
+      }
+
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    });
   });
 </script>

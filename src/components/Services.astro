@@ -77,11 +77,6 @@ const services = [
               ))}
             </ul>
 
-            <div class="svc__actions">
-              <a href="#jobs" class="svc__btn svc__btn--primary">דרושים</a>
-              <a href="#contact" class="svc__btn svc__btn--outline">יצירת קשר</a>
-            </div>
-
           </div>
 
           <!-- Images — second in DOM = left side in RTL -->
@@ -239,43 +234,6 @@ const services = [
   .svc__bullet strong {
     font-weight: 800;
     color: var(--color-dark);
-  }
-
-  /* CTA buttons */
-  .svc__actions {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .svc__btn {
-    display: inline-block;
-    padding: 10px 28px;
-    border-radius: 4px;
-    font-family: 'Assistant', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-    text-decoration: none;
-    border: 2px solid transparent;
-  }
-  .svc__btn--primary {
-    background: var(--color-dark);
-    color: #fff;
-    border-color: var(--color-dark);
-  }
-  .svc__btn--primary:hover {
-    background: var(--color-teal-dark);
-    border-color: var(--color-teal-dark);
-  }
-  .svc__btn--outline {
-    background: transparent;
-    color: var(--color-dark);
-    border-color: var(--color-dark);
-  }
-  .svc__btn--outline:hover {
-    background: var(--color-dark);
-    color: #fff;
   }
 
   /* ── Media (left in RTL) ─────────────────────────── */

@@ -39,6 +39,12 @@
     <form class="contact__form" id="contactForm">
       <!-- Web3Forms access key -->
       <input type="hidden" name="access_key" value="28ce3d03-336e-4ca8-a5da-a52ba7e067b3" />
+      <input type="hidden" name="job_context" id="jobContext" value="" />
+
+      <div class="contact__job-banner" id="jobBanner" hidden>
+        <span id="jobBannerText"></span>
+        <button type="button" class="contact__job-banner-close" id="jobBannerClose" aria-label="הסר">✕</button>
+      </div>
 
       <div class="contact__form-grid">
         <div class="contact__field">
@@ -186,6 +192,34 @@
   border-color: var(--color-teal-mid);
   background: var(--color-white);
 }
+.contact__job-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(var(--color-teal-dark-rgb, 42,95,95), 0.08);
+  border: 1.5px solid var(--color-teal-mid);
+  border-radius: 7px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-teal-dark);
+  direction: rtl;
+}
+.contact__job-banner-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  color: var(--color-teal-dark);
+  opacity: 0.6;
+  padding: 0 2px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.contact__job-banner-close:hover { opacity: 1; }
+.contact__job-banner[hidden] { display: none; }
 .contact__submit { width: 100%; padding: 14px; font-size: 16px; }
 .contact__success {
   display: none;
@@ -210,6 +244,17 @@
   const form = document.getElementById('contactForm') as HTMLFormElement;
   const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
   const successMsg = document.getElementById('contactSuccess');
+  const jobBanner = document.getElementById('jobBanner') as HTMLElement | null;
+  const jobContext = document.getElementById('jobContext') as HTMLInputElement | null;
+
+  document.getElementById('jobBannerClose')?.addEventListener('click', () => {
+    if (jobBanner) jobBanner.hidden = true;
+    if (jobContext) jobContext.value = '';
+    const subject = document.getElementById('subject') as HTMLSelectElement | null;
+    const message = document.getElementById('message') as HTMLTextAreaElement | null;
+    if (subject) subject.value = '';
+    if (message) message.value = '';
+  });
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -228,6 +273,7 @@
 
       if (response.ok) {
         form.reset();
+        if (jobBanner) jobBanner.hidden = true;
         successMsg?.classList.add('show');
         setTimeout(() => successMsg?.classList.remove('show'), 5000);
       } else {
