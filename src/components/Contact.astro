@@ -15,10 +15,11 @@
   <div class="container contact__inner">
     <div class="contact__text">
       <p class="contact__eyebrow">צור קשר</p>
-      <h2 class="section-title contact__title">דברו איתנו –<br/>אנחנו כאן בשבילכם</h2>
+      <h2 class="section-title contact__title">דברו איתנו<br/><span class="contact__title-sub">אנחנו כאן בשבילכם</span></h2>
       <p class="contact__sub">
-        נשמח לשמוע ממכם! בין אם אתם מחפשים עובד, מחפשים עבודה,
-        או זקוקים לשירותי ניהול מבנים – צוות VEGA זמין עבורכם.
+        <strong class="contact__sub-opener">נשמח לשמוע ממכם!</strong><br/>
+        בין אם אתם מחפשים עובד, מחפשים עבודה, או זקוקים לשירותי ניהול מבנים<br/>
+        <strong>צוות VEGA זמין עבורכם</strong>
       </p>
       <div class="contact__info">
         <a href="tel:050-000-0000" class="contact__info-item">
@@ -125,12 +126,20 @@
   font-size: clamp(26px, 4vw, 40px);
   color: var(--color-white);
   margin-bottom: 18px;
+  line-height: 1.1;
+}
+.contact__title-sub {
+  font-size: clamp(20px, 3vw, 30px);
 }
 .contact__sub {
   color: rgba(255,255,255,0.75);
   font-size: 15px;
   line-height: 1.75;
   margin-bottom: 32px;
+}
+.contact__sub-opener {
+  font-size: 17px;
+  color: var(--color-white);
 }
 .contact__info {
   display: flex;
