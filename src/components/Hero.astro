@@ -6,12 +6,14 @@
   <div class="hero__media">
     <video
       class="hero__video"
+      id="heroVideo"
       src="/video/hero.mp4"
       autoplay
       muted
       loop
       playsinline
-      preload="metadata"
+      webkit-playsinline
+      preload="auto"
       aria-hidden="true"
     ></video>
     <div class="hero__overlay"></div>
@@ -141,3 +143,23 @@
   }
 }
 </style>
+
+<script>
+  const video = document.getElementById('heroVideo') as HTMLVideoElement | null;
+  if (video) {
+    // Ensure muted (required for autoplay on iOS)
+    video.muted = true;
+
+    // Attempt autoplay immediately
+    video.play().catch(() => {
+      // Autoplay blocked — retry on first user interaction
+      const resume = () => {
+        video.play().catch(() => {});
+        document.removeEventListener('touchstart', resume);
+        document.removeEventListener('click', resume);
+      };
+      document.addEventListener('touchstart', resume, { once: true });
+      document.addEventListener('click', resume, { once: true });
+    });
+  }
+</script>
