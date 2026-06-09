@@ -11,8 +11,8 @@
   },
 
   "topbar": {
-    "phone":   { "he": "050-000 00 00",     "en": "" },
-    "address": { "he": "כתובת עיר רחוב מס", "en": "" }
+    "phone":   { "he": "03-9619992",              "en": "" },
+    "address": { "he": "יגאל אלון 159, תל אביב", "en": "" }
   },
 
   "hero": {
@@ -214,9 +214,9 @@
     "sub_body":     { "he": "בין אם אתם מחפשים עובד, מחפשים עבודה, או זקוקים לשירותי ניהול מבנים", "en": "" },
     "sub_closing":  { "he": "צוות VEGA זמין עבורכם",    "en": "" },
     "info": {
-      "phone":   { "he": "050-000-0000",         "en": "" },
-      "email":   { "he": "info@vega-il.co.il",   "en": "" },
-      "address": { "he": "רח' הרצל 1, תל אביב", "en": "" }
+      "phone":   { "he": "03-9619992",               "en": "" },
+      "email":   { "he": "info@vega-il.co.il",       "en": "" },
+      "address": { "he": "יגאל אלון 159, תל אביב",   "en": "" }
     },
     "form": {
       "fname_label":       { "he": "שם פרטי",           "en": "" },
@@ -226,7 +226,7 @@
       "email_label":       { "he": "אימייל",             "en": "" },
       "email_placeholder": { "he": "israel@example.com", "en": "" },
       "phone_label":       { "he": "טלפון",              "en": "" },
-      "phone_placeholder": { "he": "050-000-0000",       "en": "" },
+      "phone_placeholder": { "he": "03-9619992",           "en": "" },
       "subject_label":     { "he": "נושא",               "en": "" },
       "subject_placeholder": { "he": "בחר/י נושא...",   "en": "" },
       "subject_option1":   { "he": "אני מחפש/ת עובדים", "en": "" },
@@ -241,7 +241,7 @@
   },
 
   "footer": {
-    "address":   { "he": "כתובת עיר רחוב מס",              "en": "" },
+    "address":   { "he": "יגאל אלון 159, תל אביב",          "en": "" },
     "copyright": { "he": "כל הזכויות שמורות.",              "en": "" }
   }
 }
