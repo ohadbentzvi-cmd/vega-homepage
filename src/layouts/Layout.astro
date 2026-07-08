@@ -52,7 +52,7 @@ const organizationSchema = {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageURL} />
 
-  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema).replace(/</g, '\\u003c')} is:inline />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
