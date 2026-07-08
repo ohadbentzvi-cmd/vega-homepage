@@ -2,8 +2,31 @@
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
-const { title = 'VEGA – אנשים טובים, תוצאות מצויינות', description = 'VEGA Holdings – 25 שנות ניסיון בגיוס עובדים, שירותי ניקיון וניהול מבנים.' } = Astro.props;
+const { title = 'VEGA – אנשים טובים, תוצאות מצויינות', description = 'VEGA Holdings – 25 שנות ניסיון בגיוס עובדים, שירותי ניקיון וניהול מבנים.', noindex = false } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL('/logos/VEGA-LOGO-REGULAR.png', Astro.site);
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'VEGA Holdings',
+  alternateName: 'וגה אחזקות',
+  url: Astro.site?.toString(),
+  logo: ogImageURL.toString(),
+  image: ogImageURL.toString(),
+  description: 'חברת גיוס עובדים, שירותי ניקיון וניהול מבנים עם 25 שנות ניסיון.',
+  telephone: '+972-3-9619992',
+  email: 'office@vega-vega.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'יגאל אלון 159',
+    addressLocality: 'תל אביב',
+    addressCountry: 'IL',
+  },
+};
 ---
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
@@ -11,8 +34,26 @@ const { title = 'VEGA – אנשים טובים, תוצאות מצויינות',
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
   <title>{title}</title>
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="VEGA Holdings" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta property="og:locale" content="he_IL" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema).replace(/</g, '\\u003c')} is:inline />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 </head>
